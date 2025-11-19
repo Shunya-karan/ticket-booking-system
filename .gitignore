@@ -1,10 +1,71 @@
-# Ignore node modules
-frontend/node_modules/
-backend/node_modules/
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
 
-# Ignore environment variables
-backend/.env
-frontend/.env
+# Env files
+*.env
+.env.local
+.env.*.local
 
-# Cache files
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+lerna-debug.log*
+/debug.log
+/tsserver.log
+
+# Build output
+/dist
+/build
+/frontend/build
+/frontend/dist
+
+# OS files
 .DS_Store
+Thumbs.db
+
+# IDEs
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# macOS
+*.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
+
+# Misc
+*.pem
+*.p12
+
+# Frontend
+/frontend/node_modules/
+/frontend/.env
+/frontend/.cache
+/frontend/.expo
+/frontend/build/
+/frontend/.parcel-cache/
+/frontend/.next/
+/frontend/.turbo/
+/frontend/dist/
+
+# Backend
+/backend/node_modules/
+/backend/.env
+/backend/build/
+/backend/dist/
+
+# Optional: lockfiles (if you want to ignore them)
+# package-lock.json
+# yarn.lock
