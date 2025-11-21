@@ -32,6 +32,7 @@ export const createUser = async (req, res, next) => {
 export const SignInUser = async (req, res, next) => {
     try {
         const { email, password } = req.body;
+        
 
         if (!email || !password) {
             return res.status(400).json({
@@ -52,7 +53,9 @@ export const SignInUser = async (req, res, next) => {
         return res.json({message:"Login success",token,user:{id: dbUser.id,
         name: dbUser.name,
         email: dbUser.email
+        
     }
+    
     });
     } catch (err) {
         return res.status(500).json({ error: err.message})
