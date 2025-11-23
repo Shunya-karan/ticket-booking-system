@@ -65,4 +65,9 @@ export default class BUS {
         const [rows] = await pool.query(`select * from buses WHERE travel_date>=CURDATE() ORDER BY travel_date ASC`);
         return rows;
     }
+
+    static async getBusById(bus_id){
+        const [ rows]=await pool.query(`select * from buses where id=?`,[bus_id]);
+        return rows.length > 0 ? rows[0] : null
+    }    
 }

@@ -1,7 +1,7 @@
 import { Router } from "express";
  import authMiddleware from "../middleware/authMiddleware.js";
  import { adminMiddleware } from "../middleware/adminMiddleware.js";
- import { addBus, deletingBus, getAllBuses, updateBus,getSearchBuses,getAllActiveBus } from "../controllers/busController.js";
+ import { addBus, deletingBus, getAllBuses, updateBus,getSearchBuses,getAllActiveBus ,getBusDetails} from "../controllers/busController.js";
  
 
 const router=Router();
@@ -17,6 +17,8 @@ router.delete("/delete/:bus_id", authMiddleware, adminMiddleware, deletingBus);
 router.get("/search", getSearchBuses);
 
 router.get("/list", getAllActiveBus);
+
+router.get("/:bus_id", getBusDetails);
 
 
 export default router;

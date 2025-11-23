@@ -1,3 +1,4 @@
+import { json } from "express";
 import BUS from "../models/busModel.js";
 
 // ADD BUS
@@ -130,3 +131,32 @@ export const getAllActiveBus = async (req, res) => {
         return res.status(500).json({ error: err.message });
     }
 };
+
+export const getBusDetails =async(req,res)=>{
+    try{
+        const bus_id = req.params.bus_id;
+
+        const buses = await BUS.getBusById(bus_id);
+
+        if(!buses){
+            return res.status(404).json({message:"Bus not found"});
+        }
+
+        if(typeof buses.bus_images==="string"){
+            try{
+                buses.bus_images = JSON.parse(buses.bus_images);
+            }catch{
+                buses.bus_images=[];
+            }
+        }
+        // TODO: fetch booked seats (after we build booking system)
+        const bookedSeats = []; 
+        return res.status(200).json({
+            message: "Bus details fetched successfully",
+            buses,
+            booked_seats: bookedSeats
+        });
+    }catch (err) {
+        return res.status(500).json({ error: err.message });
+    }
+}
