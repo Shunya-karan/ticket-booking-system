@@ -1,19 +1,27 @@
 import pool from "../config/db.js";
-
+import { SEAT_LAYOUTS } from "../utils/seatlayouts.js";
 
 export default class BUS {
     static async addBus(
         {
             bus_name, bus_number, bus_type, bus_images, start_point, end_point, travel_date, departure_time, arrival_time, price }) {
+
+        let seat_layout;
+        if (bus_type.toLowerCase() === "sleeper") {
+            seat_layout = SEAT_LAYOUTS.sleeper_32;
+        } else {
+            seat_layout = SEAT_LAYOUTS.seater_40;
+        }
+
         const [result] = await pool.query(
-            `INSERT INTO buses(bus_name, bus_number, bus_type, bus_images, start_point, end_point, travel_date, departure_time, arrival_time, price)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+            `INSERT INTO buses(bus_name, bus_number, bus_type, bus_images, start_point, end_point, travel_date, departure_time, arrival_time, price,seat_layout)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)`,
             [
                 bus_name, bus_number, bus_type,
-                JSON.stringify(bus_images), start_point, end_point, travel_date, departure_time, arrival_time, price]);
-        console.log("MODEL IMAGES:", bus_images);
-        console.log("MODEL TYPE:", typeof bus_images);
-
+                JSON.stringify(bus_images), start_point, end_point, travel_date, departure_time, arrival_time, price,JSON.stringify(seat_layout)]);
+        // console.log("MODEL IMAGES:", bus_images);
+        // console.log("MODEL TYPE:", typeof bus_images);
+        console.log("Seat Layout saved:", seat_layout);
         return result;
     }
 
@@ -40,13 +48,34 @@ export default class BUS {
         }// If bus_images is array → string
         if (Array.isArray(bus_images)) {
             bus_images = JSON.stringify(bus_images);
-        }const [result] = await pool.query(
+        }
+
+        const [oldData] = await pool.query("SELECT bus_type FROM buses WHERE id = ?", [bus_id]);
+
+        const old_type = oldData[0].bus_type.toLowerCase();
+        let seat_layout = null;
+
+         // If bus type changed → generate new layout
+         if (old_type !== bus_type.toLowerCase()) {
+            if (bus_type.toLowerCase() === "sleeper") {
+            seat_layout = SEAT_LAYOUTS.sleeper_32;
+            } else {
+            seat_layout = SEAT_LAYOUTS.seater_40;
+            }
+            seat_layout = JSON.stringify(seat_layout);
+            }
+        console.log(seat_layout) 
+
+
+
+        const [result] = await pool.query(
             `UPDATE buses 
          SET bus_name=?, bus_number=?, bus_type=?, bus_images=?, 
              start_point=?, end_point=?, travel_date=?, 
-             departure_time=?, arrival_time=?, price=? 
+             departure_time=?, arrival_time=?, price=?,seat_layout = COALESCE(?, seat_layout)
          WHERE id=?`,
-            [bus_name,bus_number,bus_type,bus_images,start_point,end_point,travel_date,departure_time,arrival_time,price,bus_id ]);return result;
+            [bus_name,bus_number,bus_type,bus_images,start_point,end_point,travel_date,departure_time,arrival_time,price,seat_layout,bus_id ]);
+            return result;
     }
 
 

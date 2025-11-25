@@ -1,0 +1,125 @@
+import BOOKING from "../models/bookingModel.js";
+import BUS from "../models/busModel.js";
+
+
+
+export const bookseats = async(req,res)=>{
+
+        try{
+            const user_id  = req.user.id;
+            const {bus_id,seats}=req.body;
+
+        if (!bus_id || !Array.isArray(seats) || seats.length === 0) {
+            return res.status(400).json({ error: "bus_id and seats[] are required" });
+        }
+
+        const bus= await BUS.getBusById(bus_id);
+        if(!bus){
+            return res.status(404).json({error:"BUS NOT FOUND"});
+        }
+        
+        const alreadyBookedSeat = await BOOKING.checkSeatAvailability(bus_id,seats);
+        if(alreadyBookedSeat.length>0){
+            return res.status(409).json({
+                error:"some seats already booked",
+                seats:alreadyBookedSeat.map(s=>s.seat_number)
+            });
+        }
+
+        const total_amount = seats.length*bus.price;
+
+        const booking_id = await BOOKING.createBooking(user_id,bus_id,total_amount);
+
+        await BOOKING.saveBookedSeats(booking_id,bus_id,seats);
+
+        return res.status(201).json({
+            message: "Booking successful",
+            booking_id,
+            seats,
+            total_amount
+        });
+
+
+        }catch(err){
+            return res.status(500).json({
+                error:err.message
+            })
+        }
+}
+
+
+export const cancelSelectedSeats = async (req,res)=>{
+    try{
+        const user_id = req.user.id;
+        const booking_id = req.params.booking_id;
+        const {seats} = req.body;
+
+        if (!Array.isArray(seats) || seats.length === 0) {
+            return res.status(400).json({ error: "Seats array is required" });
+        }
+
+        //getting booking 
+        const booking = await BOOKING.getBookingById(booking_id);
+
+        if (!booking) return res.status(404).json({ error: "Booking not found" });
+
+        if (booking.user_id !== user_id)
+            return res.status(403).json({ error: "Unauthorized" });
+
+        if (booking.status === "CANCELLED")
+            return res.status(400).json({ error: "Booking already cancelled" });
+
+        //getting bus details
+        const bus = await BUS.getBusById(booking.bus_id);
+
+        //geting seat number
+        const bookedSeats = await BOOKING.getBookedSeatsById(booking_id);
+
+        
+        const bookedSeatList = bookedSeats.map(s => s.seat_number);
+        console.log("bookedSeatList :",bookedSeatList)
+
+        const invalidSeats = seats.filter(s => !bookedSeatList.includes(s));
+        console.log("invalidSeats",invalidSeats);
+
+        if (invalidSeats.length > 0) {
+            return res.status(400).json({
+                error: "Some seats do not belong to this booking",
+                invalidSeats
+            });
+        }
+
+        //removing selected seats
+        await BOOKING.removeSeats(booking_id, seats);
+
+        //checking remaining seats
+        const remainingSeats = bookedSeatList.filter(
+            seat => !seats.includes(seat)
+        );
+
+        console.log("remainingSeats:",remainingSeats)
+
+        if (remainingSeats.length === 0) {
+            await BOOKING.cancelEntireBooking(booking_id);
+            return res.status(200).json({
+                message: "All seats cancelled. Booking cancelled.",
+                booking_id
+            });
+        }
+
+        // update amount
+        const newAmount = remainingSeats.length * bus.price;
+        await BOOKING.updateBookingAmount(booking_id, newAmount);
+
+        return res.status(200).json({
+            message: "Selected seats cancelled successfully",
+            cancelled_seats: seats,
+            remaining_seats: remainingSeats,
+            new_amount: newAmount
+        });
+    
+    }catch(err){
+        return res.status(500).json({message:err.message}
+        );
+    }
+}

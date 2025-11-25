@@ -1,4 +1,4 @@
-import { json } from "express";
+// import { json } from "express";
 import BUS from "../models/busModel.js";
 
 // ADD BUS
@@ -33,9 +33,12 @@ export const getAllBuses = async (req, res) => {
     try {
         const buses = await BUS.getAllBus();
 
-    if (typeof buses.bus_images === "string") {
-    buses.bus_images = JSON.parse(buses.bus_images);
-    }
+    buses.forEach(bus => {
+        if (typeof bus.bus_images === "string") {
+            bus.bus_images = JSON.parse(bus.bus_images);
+        }
+    });
+
 
         return res.status(200).json({ message: "All buses fetched successfully", buses });
 
@@ -89,13 +92,12 @@ export const getSearchBuses = async (req, res) => {
 
         const buses = await BUS.searchBuses(from, to, date);
 
-        if (typeof(buses.bus_images==="string")){
         buses.forEach(bus => {
-            if (buses.bus_images) {
-                buses.bus_images = JSON.parse(buses.bus_images);
+            if (typeof bus.bus_images === "string") {
+                bus.bus_images = JSON.parse(bus.bus_images);
             }
-        })
-    };
+        });
+
 
         if (buses.length === 0) {
             return res.status(404).json({ message: "No bus found for this route" });
@@ -113,13 +115,12 @@ export const getAllActiveBus = async (req, res) => {
     try {
         const buses = await BUS.getActiveBus();
 
-        if (typeof(buses.bus_images==="string")){
-        buses.forEach(bus => {
-            if (buses.bus_images) {
-                buses.bus_images = JSON.parse(buses.bus_images);
-            }
-        })
-    };
+    buses.forEach(bus => {
+    if (typeof bus.bus_images === "string") {
+        bus.bus_images = JSON.parse(bus.bus_images);
+    }
+    });
+
 
         if (buses.length === 0) {
             return res.status(400).json({ message: "No buses are active" });
@@ -132,6 +133,7 @@ export const getAllActiveBus = async (req, res) => {
     }
 };
 
+//GET BUS DETAILS BY ID
 export const getBusDetails =async(req,res)=>{
     try{
         const bus_id = req.params.bus_id;
@@ -147,6 +149,15 @@ export const getBusDetails =async(req,res)=>{
                 buses.bus_images = JSON.parse(buses.bus_images);
             }catch{
                 buses.bus_images=[];
+            }
+        }
+
+                // Parse seat layout
+        if (typeof buses.seat_layout === "string") {
+            try {
+                buses.seat_layout = JSON.parse(buses.seat_layout);
+            } catch {
+                buses.seat_layout = null;
             }
         }
         // TODO: fetch booked seats (after we build booking system)
