@@ -1,6 +1,6 @@
 import BOOKING from "../models/bookingModel.js";
 import BUS from "../models/busModel.js";
-
+import USER from "../models/userModel.js";
 
 
 export const bookseats = async(req,res)=>{
@@ -122,4 +122,92 @@ export const cancelSelectedSeats = async (req,res)=>{
         return res.status(500).json({message:err.message}
         );
     }
+}
+
+export const getMyBookings = async(req,res)=>{
+
+    try{
+
+        const user_id = req.user.id
+
+        const bookings =await BOOKING.getBookingsByUser(user_id)
+        
+        if (bookings.length===0){
+            return res.status(200).json({
+                message:"No bookings found"
+            });
+        }
+        for (let booking of bookings) {
+            // fetch seats
+            const seats = await BOOKING.getBookedSeatsById(booking.id);
+            booking.seats = seats.map(s => s.seat_number);
+
+            // fetch bus
+            const bus = await BUS.getBusById(booking.bus_id);
+
+            // parse bus images
+            if (typeof bus.bus_images === "string") {
+                try {
+                    bus.bus_images = JSON.parse(bus.bus_images);
+                } catch {
+                    bus.bus_images = [];
+                }
+            }
+
+            booking.bus = bus;
+        }
+
+        return res.status(200).json({
+            message: "My bookings fetched successfully",
+            bookings
+        });
+
+
+    }catch(err){
+        return res.json({message:err.message})
+    }
+}
+
+export const getAllBookingofBus = async(req,res)=>{
+try{
+    const bus_id = req.params.bus_id
+
+    const bus =await BUS.getBusById(bus_id);
+    if(!bus){
+        return res.status(500).json({message:"Bus not found"})
+    }
+
+    const bookings = await BOOKING.getAllBookingof(bus_id)
+
+    if (bookings.length===0){
+            return res.status(200).json({
+                message:"No bookings found"
+            });
+    }
+
+    for(let booking of bookings){
+        const seats = await BOOKING.getBookedSeatsById(booking.id);
+        booking.seats = seats.map(s => s.seat_number);
+        console.log(booking.seats) 
+
+        const User = await USER.getUserbyId(booking.user_id);
+        booking.user={
+            id:User.id,
+            name:User.name,
+            email:User.email
+        };
+
+    }
+    return res.status(200).json({
+            message: "Bookings fetched successfully",
+            bus_id,
+            bus_name: bus.bus_name,
+            bookings
+        });    
+
+
+}catch(err){
+    return res.status(500).json({error:err.message})
+}
+
 }

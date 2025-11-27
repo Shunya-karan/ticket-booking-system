@@ -78,8 +78,6 @@ export default class BUS {
             return result;
     }
 
-
-
     static async deleteBus(bus_id) {
         const [result] = await pool.query("Delete from buses where id =?", [bus_id]);
         return result;
@@ -100,3 +98,5 @@ export default class BUS {
         return rows.length > 0 ? rows[0] : null
     }    
 }
+
+

@@ -50,7 +50,7 @@ export default class BOOKING{
         `UPDATE bookings SET total_amount = ? WHERE id = ?`,
         [new_amount, booking_id]
     );
-    }
+    };
 
     static async cancelEntireBooking(booking_id) {
     await pool.query(
@@ -59,7 +59,29 @@ export default class BOOKING{
     );
     }
 
+    static async getBookingsByUser(user_id) {
+    const [rows] = await pool.query(
+        `SELECT * FROM bookings 
+         WHERE user_id = ? 
+         ORDER BY booked_at DESC`,
+        [user_id]
+    );
+    return rows;
+    }
 
-    
+    static async getAllBookingof(bus_id){
+        const [rows]=await pool.query(`select * from bookings where bus_id=? ORDER BY booked_at DESC`,[bus_id]);
+        return rows
+    }
+
+    static async getBookedSeatsByBus(bus_id) {
+    const [rows] = await pool.query(
+        `SELECT seat_number FROM booked_seats WHERE bus_id = ?`,
+        [bus_id]
+    );
+    return rows;
+}
+
 
 }
+

@@ -1,5 +1,7 @@
 // import { json } from "express";
 import BUS from "../models/busModel.js";
+import BOOKING from "../models/bookingModel.js";
+
 
 // ADD BUS
 export const addBus = async (req, res) => {
@@ -160,8 +162,8 @@ export const getBusDetails =async(req,res)=>{
                 buses.seat_layout = null;
             }
         }
-        // TODO: fetch booked seats (after we build booking system)
-        const bookedSeats = []; 
+
+        const bookedSeats = await BOOKING.getBookedSeatsByBus(bus_id);
         return res.status(200).json({
             message: "Bus details fetched successfully",
             buses,

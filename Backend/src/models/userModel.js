@@ -15,5 +15,11 @@ export default class USER {
         );
         return rows;
     }
+
+  static async getUserbyId(id) {
+    const [rows] = await pool.query(`SELECT id, name, email FROM users WHERE id = ?`, [id]);
+    return rows.length > 0 ? rows[0] : null;
+}
+
     
 }
