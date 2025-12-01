@@ -5,29 +5,40 @@ import { generateToken } from "../utils/jwt.js";
 export const createUser = async (req, res, next) => {
     try {
         const { name, email, password } = req.body;
+
         if (!name || !email || !password) {
-            return res.status(400).json({ error: "All fields are required" })
+            return res.status(400).json({ error: "All fields are required" });
         }
+
         if (password.length < 8) {
-            return res.status(400).json({ error: "Password must be atleast 8 charecters" });
+            return res.status(400).json({ error: "Password must be atleast 8 characters" });
         }
+
         const existingUser = await USER.existingUsers(email);
-
         if (existingUser.length > 0) {
-            return res.status(400).json({ error: "User already exists with this email" })
+            return res.status(400).json({ error: "User already exists with this email" });
         }
-        const hashpass = await bcrypt.hash(password, 10)
 
-        const User = await USER.signUp({ name, email, password: hashpass })
-        res.status(200).json({
-            message: "User registered successfully"
-        })
+        const hashpass = await bcrypt.hash(password, 10);
 
+        const result = await USER.signUp({ name, email, password: hashpass });
+        const newUserId = result.insertId;   // ⭐ MySQL gives insertId, not id
+
+        return res.status(201).json({
+            message: "User registered successfully",
+            user: {
+                id: newUserId,
+                name,
+                email
+            }
+        });
+
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({ error: "Internal Server Error" });
     }
-    catch (err) {
-        return res.status(500).json({ error: err.message })
-    }
-}
+};
+
 
 export const SignInUser = async (req, res, next) => {
     try {
