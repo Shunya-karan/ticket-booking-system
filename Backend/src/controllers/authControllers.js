@@ -61,9 +61,11 @@ export const SignInUser = async (req, res, next) => {
         }
         const token= generateToken({id:dbUser.id,email:dbUser.email,role:dbUser.role});
 
-        return res.json({message:"Login success",token,user:{id: dbUser.id,
+        return res.json({message:"Login success",token,
+        user:{id: dbUser.id,
         name: dbUser.name,
-        email: dbUser.email
+        email: dbUser.email,
+        role:dbUser.role
         
     }
     

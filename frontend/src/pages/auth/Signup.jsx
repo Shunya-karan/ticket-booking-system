@@ -2,7 +2,7 @@ import { useState } from "react";
 import AuthInput from "../../components/AuthInput.jsx";
 import api from "../../services/api";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Navigate } from "react-router-dom";
 import AuthNavbar from "../../components/AuthNavbar.jsx";
 import IMAGES from "../../assets/image.js";
 import {Mail,
@@ -13,6 +13,7 @@ import {Mail,
   Clock,
   Shield,
 } from "lucide-react";
+import { useAuth } from "../../context/AuthContext.jsx";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -21,7 +22,11 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  // const { login,isLoggedIn } = useAuth();
 
+  // if (isLoggedIn) {
+  //   return <Navigate to="/" replace />;
+  // }
   const handleSignup = async (e) => {
     e.preventDefault();
     setIsLoading(true)

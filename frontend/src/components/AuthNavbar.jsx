@@ -1,15 +1,17 @@
 import { useState } from "react";
 import IMAGES from "../assets/image";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+
+
 
 const AuthNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
-  // const showButton = signinorsignup && signinorsignuppath;
+
   const location = useLocation();
   const currentPath = location.pathname;
-  const token = localStorage.getItem("authToken"); 
-  const isLoggedIn = !!token;
+  const { isLoggedIn, logout } = useAuth();
 
   let buttonText = "";
   let buttonPath = "";
@@ -73,25 +75,25 @@ const AuthNavbar = () => {
               </Link>
 
 
-{/* Desktop: Login / Signup / Logout */}
-{!isLoggedIn ? (
-  <button
-    onClick={() => navigate(buttonPath)}
-    className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-5 py-2 rounded-lg font-semibold text-sm hover:shadow-lg transition-all"
-  >
-    {buttonText}
-  </button>
-) : (
-  <button
-    onClick={() => {
-      localStorage.removeItem("authToken");
-      navigate("/login");
-    }}
-    className="bg-gray-800 text-white px-5 py-2 rounded-lg font-semibold text-sm hover:bg-black"
-  >
-    Logout
-  </button>
-)}
+              {/* Desktop: Login / Signup / Logout */}
+              {!isLoggedIn ? (
+                <button
+                  onClick={() => navigate(buttonPath)}
+                  className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-5 py-2 rounded-lg font-semibold text-sm hover:shadow-lg transition-all"
+                >
+                  {buttonText}
+                </button>
+              ) : (
+                <button
+                  onClick={() => {
+                    logout()
+                    navigate("/login");
+                  }}
+                  className="bg-gray-800 text-white px-5 py-2 rounded-lg font-semibold text-sm hover:bg-black"
+                >
+                  Logout
+                </button>
+              )}
 
 
             </nav>
@@ -135,25 +137,25 @@ const AuthNavbar = () => {
               </Link>
 
 
-{/* mobile: Login / Signup / Logout */}
-{!isLoggedIn ? (
-  <button
-    onClick={() => navigate(buttonPath)}
-    className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-5 py-2 rounded-lg font-semibold text-sm hover:shadow-lg transition-all"
-  >
-    {buttonText}
-  </button>
-) : (
-  <button
-    onClick={() => {
-      localStorage.removeItem("authToken");
-      navigate("/login");
-    }}
-    className="bg-gray-800 text-white px-5 py-2 rounded-lg font-semibold text-sm hover:bg-black"
-  >
-    Logout
-  </button>
-)}
+              {/* mobile: Login / Signup / Logout */}
+              {!isLoggedIn ? (
+                <button
+                  onClick={() => navigate(buttonPath)}
+                  className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-5 py-2 rounded-lg font-semibold text-sm hover:shadow-lg transition-all"
+                >
+                  {buttonText}
+                </button>
+              ) : (
+                <button
+                  onClick={() => {
+                    logout()
+                    navigate("/login");
+                  }}
+                  className="bg-gray-800 text-white px-5 py-2 rounded-lg font-semibold text-sm hover:bg-black"
+                >
+                  Logout
+                </button>
+              )}
 
 
 
