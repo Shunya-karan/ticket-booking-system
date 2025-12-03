@@ -7,13 +7,12 @@ import Contact from "../pages/forall/Contact";
 import Login from "../pages/auth/Login";
 import Signup from "../pages/auth/Signup";
 
-// User pages (keep all these)
+// User pages
 import SearchBus from "../pages/user/SearchBus";
 import MyBookings from "../pages/user/MyBookings";
 import BusDetails from "../pages/user/BusDetails";
-import SelectSeat from "../pages/user/SelectSeat";
-import BookingSuccess from "../pages/user/BookingSuccess";
-import Myprofile from "../pages/user/MyProfile";
+import MyProfile from "../pages/user/MyProfile";
+
 export default function AppRouter() {
   return (
     <BrowserRouter>
@@ -32,9 +31,7 @@ export default function AppRouter() {
         <Route path="/search-bus" element={<SearchBus />} />
         <Route path="/my-bookings" element={<MyBookings />} />
         <Route path="/bus-details/:busId" element={<BusDetails />} />
-        <Route path="/select-seat/:busId" element={<SelectSeat />} />
-        <Route path="/booking-success/:id" element={<BookingSuccess />} />
-        <Route path="/My-profile" element={<Myprofile/>} />
+        <Route path="/my-profile" element={<MyProfile />} />
 
         {/* 404 */}
         <Route path="*" element={<h1>Page Not Found</h1>} />

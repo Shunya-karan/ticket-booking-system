@@ -85,32 +85,35 @@ export const deletingBus = async (req, res) => {
 
 // SEARCH BUSES
 export const getSearchBuses = async (req, res) => {
-    try {
-        const { from, to, date } = req.query;
+  try {
+    const { from, to, date } = req.query;
 
-        if (!from || !to || !date) {
-            return res.status(400).json({ message: "from, to and date are required" });
-        }
-
-        const buses = await BUS.searchBuses(from, to, date);
-
-        buses.forEach(bus => {
-            if (typeof bus.bus_images === "string") {
-                bus.bus_images = JSON.parse(bus.bus_images);
-            }
-        });
-
-
-        if (buses.length === 0) {
-            return res.status(404).json({ message: "No bus found for this route" });
-        }
-
-        return res.status(200).json({ message: "Buses fetched successfully", buses });
-
-    } catch (err) {
-        return res.status(500).json({ error: err.message });
+    if (!from || !to) {
+      return res.status(400).json({ message: "from and to are required" });
     }
+
+    const buses = await BUS.searchBuses(from, to, date);
+
+    buses.forEach(bus => {
+      if (typeof bus.bus_images === "string") {
+        bus.bus_images = JSON.parse(bus.bus_images);
+      }
+    });
+
+    if (buses.length === 0) {
+      return res.status(404).json({ message: "No buses found" });
+    }
+
+    return res.status(200).json({
+      message: "Buses fetched successfully",
+      buses,
+    });
+
+  } catch (err) {
+    return res.status(500).json({ error: err.message });
+  }
 };
+
 
 // ACTIVE BUSES
 export const getAllActiveBus = async (req, res) => {
@@ -173,3 +176,20 @@ export const getBusDetails =async(req,res)=>{
         return res.status(500).json({ error: err.message });
     }
 }
+
+
+export const getPopularRoutes = async (req, res) => {
+  try {
+    const routes = await BUS.getPopularRoutes();
+
+    return res.status(200).json({
+      message: "Popular routes fetched",
+      routes   // <-- IMPORTANT
+    });
+
+  } catch (err) {
+    return res.status(500).json({ error: err.message });
+  }
+};
+
+
