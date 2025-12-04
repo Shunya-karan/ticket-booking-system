@@ -25,7 +25,7 @@ export default class BUS {
         return result;
     }
 
-
+    
     static async getAllBus() {
         const [result] = await pool.query("SELECT * FROM buses ORDER BY travel_date ASC");
         // console.log(result)

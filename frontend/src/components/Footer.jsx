@@ -1,9 +1,13 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { SocialIcon } from 'react-social-icons'
-
+import { useState } from 'react';
+import SearchModal from "./SearchModal";
 const Footer = () => {
+      const [openSearchModal, setOpenSearchModal] = useState(false);
+
   return (
+    <>
     <footer className="bg-black text-gray-300 py-10 mt-10">
       <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-8">
 
@@ -20,7 +24,7 @@ const Footer = () => {
           <h3 className="text-white font-semibold mb-3">Quick Links</h3>
           <ul className="space-y-2 text-sm">
             <li><a href="/" className="hover:text-orange-400">Home</a></li>
-            <li><a href="/search-bus" className="hover:text-orange-400">Search Buses</a></li>
+            <li><a  onClick={() => setOpenSearchModal(true)} className="hover:text-orange-400">Search Buses</a></li>
             <li><a href="/my-bookings" className="hover:text-orange-400">My Bookings</a></li>
             <li><a href="/about" className="hover:text-orange-400">About Us</a></li>
           </ul>
@@ -54,6 +58,10 @@ const Footer = () => {
         © {new Date().getFullYear()} BusBuddy. All rights reserved.
       </div>
     </footer>
+    <SearchModal 
+    isOpen={openSearchModal} 
+    onClose={() => setOpenSearchModal(false)} >
+      </SearchModal></>
   );
 };
 

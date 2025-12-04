@@ -1,7 +1,7 @@
 import { useAuth } from "../../context/AuthContext";
 import AuthNavbar from "../../components/AuthNavbar";
 import AdminNavbar from "../../components/AdminNavbar";
-import UserNavbar from "../../components/Usernavbar";
+import UserNavbar from "../../components/UserNavbar";
 import Footer from "../../components/Footer";
 import IMAGES from "../../assets/image";
 import toast from "react-hot-toast";
@@ -164,7 +164,7 @@ const Home = () => {
                 }
                 className="bg-gradient-to-r from-orange-500 to-red-500 text-white w-full py-2 rounded-xl font-semibold hover:shadow-lg"
               >
-                Search Buses
+                See Buses
               </button>
             </div>
           ))}

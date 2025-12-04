@@ -7,6 +7,7 @@ import { adminMiddleware } from '../middleware/adminMiddleware.js';
 const router= Router();
 
 router.post("/book",authMiddleware,bookseats)
+
 router.patch("/cancel-seats/:booking_id",authMiddleware,cancelSelectedSeats
 );
 

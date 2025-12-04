@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import SleeperSeat from "../../components/SleeperSeat";
 import Seat from "../../components/Seat";
 import Footer from "../../components/Footer";
+import Navbar from "../../components/Navbar";
 
 const BusDetails = () => {
   const { busId } = useParams();
@@ -21,8 +22,10 @@ const BusDetails = () => {
   const loadBusDetails = async () => {
     try {
       const res = await api.get(`/bus/${busId}`);
+      // console.log("Booked Seats From Backend:", res.data.booked_seats);
+
       setBus(res.data.buses);
-      setBookedSeats(res.data.booked_seats || []);
+      setBookedSeats((res.data.booked_seats || []).map(s => s.seat_number));
     } catch (err) {
       toast.error("Failed to fetch bus details");
     }
@@ -50,20 +53,25 @@ const BusDetails = () => {
 
   if (!bus) {
     return (
+      <> 
+      <Navbar/>
       <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-orange-50 flex items-center justify-center">
         <div className="text-center">
           <div className="w-16 h-16 mx-auto border-4 border-orange-200 border-t-orange-500 rounded-full animate-spin"></div>
           <p className="mt-4 text-gray-600 font-medium">Loading bus details...</p>
         </div>
       </div>
+      </>
     );
   }
 
   const totalPrice = selectedSeats.length * bus.price;
 
   return (
+    <> 
+      <Navbar/>
     <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-orange-50 pb-32">
-      
+
       {/* Enhanced Header */}
       <div className="bg-gradient-to-r from-orange-500 via-orange-600 to-red-500 shadow-xl">
         <div className="max-w-6xl mx-auto px-6 py-6">
@@ -87,7 +95,7 @@ const BusDetails = () => {
       </div>
 
       <div className="max-w-6xl mx-auto px-6 py-8">
-        
+
         {/* Bus Images Gallery */}
         {bus.bus_images?.length > 0 && (
           <div className="mb-8">
@@ -122,19 +130,19 @@ const BusDetails = () => {
             </svg>
             Journey Details
           </h2>
-        <div className="w-64 flex items-center gap-2 mb-6 p-3 bg-gradient-to-r from-orange-50 to-red-50 rounded-lg">
-                      <svg className="w-5 h-5 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                      </svg>
-                      <p className="text-sm font-medium text-gray-700">
-                        {new Date(bus.travel_date).toLocaleDateString("en-US", {
-                          day: "2-digit",
-                          month: "short",
-                          year: "numeric",
-                          weekday: "long",
-                        })}
-                      </p>
-                    </div>
+          <div className="w-64 flex items-center gap-2 mb-6 p-3 bg-gradient-to-r from-orange-50 to-red-50 rounded-lg">
+            <svg className="w-5 h-5 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            <p className="text-sm font-medium text-gray-700">
+              {new Date(bus.travel_date).toLocaleDateString("en-US", {
+                day: "2-digit",
+                month: "short",
+                year: "numeric",
+                weekday: "long",
+              })}
+            </p>
+          </div>
           <div className="grid md:grid-cols-2 gap-6">
             {/* Route Information */}
             <div className="space-y-4">
@@ -191,7 +199,7 @@ const BusDetails = () => {
               </svg>
               Select Your Seats
             </h2>
-            
+
             {selectedSeats.length > 0 && (
               <div className="text-right">
                 <p className="text-sm text-gray-500">Selected Seats</p>
@@ -274,6 +282,7 @@ const BusDetails = () => {
       )}
       <Footer></Footer>
     </div>
+    </>
   );
 };
 

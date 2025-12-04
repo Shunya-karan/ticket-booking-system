@@ -23,8 +23,26 @@ export default class BOOKING{
         `Insert into booked_seats(booking_id,bus_id,seat_number) values ?`,[values]);
 }
 
+static async savePassengerDetails(booking_id, seats, passengers) {
+  const values = seats.map((seat, index) => [
+    booking_id,
+    seat,
+    passengers[index].name,
+    passengers[index].age,
+    passengers[index].gender
+  ]);
 
-    static async getBookingById(booking_id) {
+  const query = `
+    INSERT INTO passengers 
+    (booking_id, seat_number, name, age, gender)
+    VALUES ?
+  `;
+
+  return pool.query(query, [values]);
+}
+
+
+static async getBookingById(booking_id) {
     const [rows] = await pool.query(
         `SELECT * FROM bookings WHERE id = ?`,
         [booking_id]
@@ -36,6 +54,10 @@ export default class BOOKING{
         const [rows]=await pool.query(`SELECT seat_number FROM booked_seats where booking_id=?`,[booking_id]
         );
         return rows;
+    }
+
+    static async getPassengersDetailsById(booking_id){
+        const [rows]=await pool.query(`Select `)
     }
 
     static async removeSeats(booking_id, seatsToRemove) {

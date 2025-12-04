@@ -7,10 +7,15 @@ export const bookseats = async(req,res)=>{
 
         try{
             const user_id  = req.user.id;
-            const {bus_id,seats}=req.body;
+            const {bus_id,seats,passengers}=req.body;
 
         if (!bus_id || !Array.isArray(seats) || seats.length === 0) {
             return res.status(400).json({ error: "bus_id and seats[] are required" });
+        }
+
+        if(!passengers ||passengers.length!==seats.length){
+            return res.status(400).json({error:"passengers Info required for each seats"});
+
         }
 
         const bus= await BUS.getBusById(bus_id);
@@ -32,6 +37,8 @@ export const bookseats = async(req,res)=>{
 
         await BOOKING.saveBookedSeats(booking_id,bus_id,seats);
 
+        await BOOKING.savePassengerDetails(booking_id,seats,passengers)
+
         return res.status(201).json({
             message: "Booking successful",
             booking_id,
@@ -46,7 +53,6 @@ export const bookseats = async(req,res)=>{
             })
         }
 }
-
 
 export const cancelSelectedSeats = async (req,res)=>{
     try{
@@ -74,7 +80,6 @@ export const cancelSelectedSeats = async (req,res)=>{
 
         //geting seat number
         const bookedSeats = await BOOKING.getBookedSeatsById(booking_id);
-
         
         const bookedSeatList = bookedSeats.map(s => s.seat_number);
         console.log("bookedSeatList :",bookedSeatList)

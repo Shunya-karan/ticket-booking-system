@@ -13,7 +13,7 @@ import MyBookings from "../pages/user/MyBookings";
 import BusDetails from "../pages/user/BusDetails";
 import MyProfile from "../pages/user/MyProfile";
 import SelectSeat from "../pages/user/SelectSeat";
-
+import BookingSuccess from "../pages/user/BookingSuccess";
 export default function AppRouter() {
   return (
     <BrowserRouter>
@@ -34,6 +34,8 @@ export default function AppRouter() {
         <Route path="/bus-details/:busId" element={<BusDetails />} />
         <Route path="/my-profile" element={<MyProfile />} />
         <Route path="/select-seat/:busId" element={<SelectSeat />} />
+        <Route path="/booking-success/:bookingId" element={<BookingSuccess />} />
+
 
         {/* 404 */}
         <Route path="*" element={<h1>Page Not Found</h1>} />

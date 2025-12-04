@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import api from "../../services/api";
 import toast from "react-hot-toast";
 import Footer from "../../components/Footer";
+import Navbar from "../../components/Navbar";
 
 const SearchBus = () => {
   const location = useLocation();
@@ -36,6 +37,8 @@ const SearchBus = () => {
   };
 
   return (
+    <> 
+      <Navbar></Navbar>
     <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-orange-50">
       
       {/* Enhanced Header */}
@@ -57,7 +60,8 @@ const SearchBus = () => {
                 <span>{to}</span>
               </h1>
               <div className="flex items-center gap-4 text-white/90">
-                <p className="flex items-center gap-2">
+                <p className="flex items-center gap-2">\
+                  {/* Date */}
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                   </svg>
@@ -101,7 +105,7 @@ const SearchBus = () => {
 
                   {/* Bus Images Slider */}
                   <div className="w-full lg:w-1/3 relative bg-gradient-to-br from-gray-100 to-gray-200">
-                    <div className="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide h-64 lg:h-full">
+                    <div className="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide h-80 lg:h-full">
                       {bus.bus_images?.length > 0 ? (
                         bus.bus_images.map((img, index) => (
                           <img
@@ -212,6 +216,7 @@ const SearchBus = () => {
       </div>
       <Footer></Footer>
     </div>
+    </>
     
   );
 };
