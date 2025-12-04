@@ -82,7 +82,7 @@ const Home = () => {
             <input
               type="text"
               placeholder="From"
-              className="border text-black p-3 rounded-xl w-full sm:w-40"
+              className="border  border-gray-700 placeholder:text-black text-black p-3 rounded-xl w-full sm:w-40"
               value={from}
               onChange={(e) => setFrom(e.target.value)}
             />
@@ -90,14 +90,14 @@ const Home = () => {
             <input
               type="text"
               placeholder="To"
-              className="border p-3 text-black rounded-xl w-full sm:w-40"
+              className="border border-gray-700 placeholder:text-black p-3 text-black rounded-xl w-full sm:w-40"
               value={to}
               onChange={(e) => setTo(e.target.value)}
             />
 
             <input
               type="date"
-              className="border p-3 text-black rounded-xl w-full sm:w-40"
+              className="border p-3  border-gray-700 placeholder:text-black text-black rounded-xl w-full sm:w-40"
               value={date}
               onChange={(e) => setDate(e.target.value)}
             />
@@ -193,7 +193,7 @@ const Home = () => {
       </section>
 
       {/* FOOTER */}
-      <Footer />
+      {isLoggedIn && <Footer/>}
     </>
   );
 };

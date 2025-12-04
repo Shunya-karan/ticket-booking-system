@@ -3,10 +3,12 @@ import IMAGES from "../assets/image";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { User } from "lucide-react";
+import SearchModal from "./SearchModal"; // adjust path if needed
 
 const UserNavbar = () => {
     const [menuOpen, setMenuOpen] = useState(false);
     const [dropdownOpen, setDropdownOpen] = useState(false);
+    const [openSearchModal, setOpenSearchModal] = useState(false);
 
     const { logout, user } = useAuth();
     const location = useLocation();
@@ -19,6 +21,7 @@ const UserNavbar = () => {
             : "text-gray-700 hover:text-orange-500 font-semibold";
 
     return (
+<>
         <header className="bg-white shadow-md border-b-2 border-orange-200">
             <div className="max-w-full mx-auto px-4 py-3 flex items-center justify-between">
 
@@ -46,9 +49,13 @@ const UserNavbar = () => {
                         Home
                     </Link>
 
-                    <Link to="/search-bus" className={`${activeText("/search-bus")} text-sm`}>
+                    <button
+                        onClick={() => setOpenSearchModal(true)}
+                        className={`${activeText("/search-bus")} transition-colors text-sm`}
+                    >
                         Search Buses
-                    </Link>
+                    </button>
+
 
                     <Link to="/my-bookings" className={`${activeText("/my-bookings")} text-sm`}>
                         My Bookings
@@ -116,9 +123,13 @@ const UserNavbar = () => {
                             Home
                         </Link>
 
-                        <Link to="/search-bus" className={`${activeText("/search-bus")} text-sm`}>
+                        <a
+                            onClick={() => setOpenSearchModal(true)}
+                            className={`${activeText("/search-bus")} transition-colors text-sm`}
+                        >
                             Search Buses
-                        </Link>
+                        </a>
+
 
                         <Link to="/my-bookings" className={`${activeText("/my-bookings")} text-sm`}>
                             My Bookings
@@ -146,7 +157,13 @@ const UserNavbar = () => {
                 </div>
             )}
         </header>
+         <SearchModal 
+    isOpen={openSearchModal} 
+    onClose={() => setOpenSearchModal(false)} 
+/>
+</>
     );
+   
 };
 
 export default UserNavbar;
