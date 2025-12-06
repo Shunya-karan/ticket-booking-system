@@ -1,11 +1,11 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import api from "../../services/api";
 import toast from "react-hot-toast";
 import SleeperSeat from "../../components/SleeperSeat";
 import Seat from "../../components/Seat";
 import Footer from "../../components/Footer";
 import Navbar from "../../components/Navbar";
+import { BUSdetails } from "../../services/busService";
 
 const BusDetails = () => {
   const { busId } = useParams();
@@ -21,7 +21,7 @@ const BusDetails = () => {
 
   const loadBusDetails = async () => {
     try {
-      const res = await api.get(`/bus/${busId}`);
+      const res = await BUSdetails(busId)
       // console.log("Booked Seats From Backend:", res.data.booked_seats);
 
       setBus(res.data.buses);
@@ -46,8 +46,11 @@ const BusDetails = () => {
       toast.error("Select at least one seat");
       return;
     }
+    console.log("NAVIGATING WITH:", { selectedSeats, bus });
+
     navigate(`/select-seat/${busId}`, {
-      state: { selectedSeats },
+      state: { selectedSeats,bus }
+          
     });
   };
 
@@ -130,6 +133,15 @@ const BusDetails = () => {
             </svg>
             Journey Details
           </h2>
+          <div className="w-64 flex items-center gap-2 mb-6 p-3 bg-gradient-to-r from-blue-50 to-blue-300-50 rounded-lg">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 0 1-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 0 1 1.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 0 0-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 0 1-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 0 0-3.375-3.375h-1.5a1.125 1.125 0 0 1-1.125-1.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H9.75" />
+</svg>
+
+            <p className="text-sm font-medium text-gray-700">
+              {bus.bus_number}
+            </p>
+          </div>
           <div className="w-64 flex items-center gap-2 mb-6 p-3 bg-gradient-to-r from-orange-50 to-red-50 rounded-lg">
             <svg className="w-5 h-5 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -172,7 +184,7 @@ const BusDetails = () => {
                 </div>
               </div>
             </div>
-
+              
             {/* Price & Type */}
             <div className="space-y-4">
               <div className="bg-gradient-to-br from-orange-50 to-red-50 rounded-xl p-6 border border-orange-200">

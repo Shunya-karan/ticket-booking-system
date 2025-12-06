@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import api from "../../services/api";
 import toast from "react-hot-toast";
 import Footer from "../../components/Footer";
 import Navbar from "../../components/Navbar";
+import { SEARCHbus } from "../../services/busService";
 
 const SearchBus = () => {
   const location = useLocation();
@@ -24,9 +24,7 @@ const SearchBus = () => {
   const fetchBuses = async () => {
     setLoading(true);
     try {
-      const res = await api.get(
-        `/bus/search?from=${from}&to=${to}&date=${date}`
-      );
+      const res = await SEARCHbus(from,to,date);
       setBuses(res.data.buses);
     } catch (err) {
       toast.error("No buses found for this route");

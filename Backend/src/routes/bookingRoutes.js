@@ -11,6 +11,6 @@ router.post("/book",authMiddleware,bookseats)
 router.patch("/cancel-seats/:booking_id",authMiddleware,cancelSelectedSeats
 );
 
-router.get('/my-booking',authMiddleware,getMyBookings)
+router.get('/my-bookings',authMiddleware,getMyBookings)
 router.get("/admin/bus/:bus_id",authMiddleware,adminMiddleware,getAllBookingofBus)
 export default router;

@@ -135,6 +135,10 @@ const UserNavbar = () => {
                             My Bookings
                         </Link>
 
+                        <Link to="/my-profile" className={`${activeText("/my-profile")} text-sm`}>
+                                    My Profile
+                        </Link>
+
                         <Link to="/about" className={`${activeText("/about")} text-sm`}>
                             About
                         </Link>

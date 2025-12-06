@@ -56,16 +56,35 @@ static async getBookingById(booking_id) {
         return rows;
     }
 
-    static async getPassengersDetailsById(booking_id){
-        const [rows]=await pool.query(`Select `)
-    }
+    static async getPassengersDetailsById(booking_id) {
+    const [rows] = await pool.query(
+        `SELECT seat_number, name, age, gender 
+         FROM passengers 
+         WHERE booking_id = ?`,
+        [booking_id]
+    );
+    return rows;
+}
+// static async removePassengerDetails(booking_id, seatsToRemove) {
+//   await pool.query(
+//     `DELETE FROM passengers WHERE booking_id = ? AND seat_number IN (?)`,
+//     [booking_id, seatsToRemove]
+//   );
+// }
+
 
     static async removeSeats(booking_id, seatsToRemove) {
-    await pool.query(
-        `DELETE FROM booked_seats WHERE booking_id = ? AND seat_number IN (?)`,
-        [booking_id, seatsToRemove]
-    );
-    }
+  await pool.query(
+    `DELETE FROM booked_seats WHERE booking_id = ? AND seat_number IN (?)`,
+    [booking_id, seatsToRemove]
+  );
+
+  await pool.query(
+    `DELETE FROM passengers WHERE booking_id = ? AND seat_number IN (?)`,
+    [booking_id, seatsToRemove]
+  );
+}
+
 
     static async updateBookingAmount(booking_id, new_amount) {
     await pool.query(

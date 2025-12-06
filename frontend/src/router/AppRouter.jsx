@@ -7,35 +7,82 @@ import Contact from "../pages/forall/Contact";
 import Login from "../pages/auth/Login";
 import Signup from "../pages/auth/Signup";
 
-// User pages
+// User pages (protected)
 import SearchBus from "../pages/user/SearchBus";
 import MyBookings from "../pages/user/MyBookings";
 import BusDetails from "../pages/user/BusDetails";
 import MyProfile from "../pages/user/MyProfile";
 import SelectSeat from "../pages/user/SelectSeat";
 import BookingSuccess from "../pages/user/BookingSuccess";
+
+import ProtectedRoute from "./ProtectedRoute";
+
 export default function AppRouter() {
   return (
     <BrowserRouter>
       <Routes>
 
-        {/* Public */}
+        {/* Public Routes */}
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
-
-        {/* Auth */}
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
 
-        {/* User Features */}
-        <Route path="/search-bus" element={<SearchBus />} />
-        <Route path="/my-bookings" element={<MyBookings />} />
-        <Route path="/bus-details/:busId" element={<BusDetails />} />
-        <Route path="/my-profile" element={<MyProfile />} />
-        <Route path="/select-seat/:busId" element={<SelectSeat />} />
-        <Route path="/booking-success/:bookingId" element={<BookingSuccess />} />
+        {/* Protected User Routes */}
+        <Route
+          path="/search-bus"
+          element={
+            <ProtectedRoute>
+              <SearchBus />
+            </ProtectedRoute>
+          }
+        />
+        
+        <Route
+          path="/bus-details/:busId"
+          element={
+            <ProtectedRoute>
+              <BusDetails />
+            </ProtectedRoute>
+          }
+        />
 
+        <Route
+          path="/select-seat/:busId"
+          element={
+            <ProtectedRoute>
+              <SelectSeat />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/booking-success/:bookingId"
+          element={
+            <ProtectedRoute>
+              <BookingSuccess />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/my-bookings"
+          element={
+            <ProtectedRoute>
+              <MyBookings />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/my-profile"
+          element={
+            <ProtectedRoute>
+              <MyProfile />
+            </ProtectedRoute>
+          }
+        />
 
         {/* 404 */}
         <Route path="*" element={<h1>Page Not Found</h1>} />

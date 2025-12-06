@@ -2,6 +2,7 @@ import USER from "../models/userModel.js";
 import bcrypt from "bcrypt";
 import { generateToken } from "../utils/jwt.js";
 
+
 export const createUser = async (req, res, next) => {
     try {
         const { name, email, password } = req.body;
@@ -74,3 +75,12 @@ export const SignInUser = async (req, res, next) => {
         return res.status(500).json({ error: err.message})
     }
 }
+
+export const getUser = async (req, res) => {
+  try {
+    const user = await USER.getUserbyId(req.params.id);
+    return res.status(200).json({ user });
+  } catch (err) {
+    return res.status(500).json({ error: err.message });
+  }
+};

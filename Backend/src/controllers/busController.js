@@ -177,7 +177,6 @@ export const getBusDetails =async(req,res)=>{
     }
 }
 
-
 export const getPopularRoutes = async (req, res) => {
   try {
     const routes = await BUS.getPopularRoutes();

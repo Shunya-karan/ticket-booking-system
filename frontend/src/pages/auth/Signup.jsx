@@ -1,6 +1,6 @@
 import { useState } from "react";
 import AuthInput from "../../components/AuthInput.jsx";
-import api from "../../services/api";
+import { PostSignUp } from "../../services/authservice.js";
 import toast from "react-hot-toast";
 import { useNavigate,Navigate } from "react-router-dom";
 import AuthNavbar from "../../components/AuthNavbar.jsx";
@@ -37,7 +37,7 @@ const Signup = () => {
     }
 
     try {
-      const res = await api.post("/auth/signup", { name, email, password });
+      const res = await PostSignUp(name,email,password);
 
       toast.success(
         `Registration Successful! Welcome ${res.data.user.name}! 🎉`

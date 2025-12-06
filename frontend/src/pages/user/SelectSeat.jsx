@@ -1,25 +1,27 @@
 import { useLocation, useParams, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import api from "../../services/api";
 import toast from "react-hot-toast";
 import Navbar from "../../components/Navbar";
+import { BOOKINGseats } from "../../services/bookingService";
 
 const SelectSeat = () => {
   const { busId } = useParams();
   const { state } = useLocation();
+
   const navigate = useNavigate();
 
   const selectedSeats = state?.selectedSeats || [];
+  const BusDetails =state?.bus;
   const [loading, setLoading] = useState(false);
-
-  const [passengers, setPassengers] = useState(
-    selectedSeats.map(() => ({
+    const [passengers, setPassengers] = useState(
+  selectedSeats.map(() => ({
       name: "",
       age: "",
       gender: "",
     }))
   );
 
+  // console.log(BusDetails)
   const handleChange = (i, field, value) => {
     const temp = [...passengers];
     temp[i][field] = value;
@@ -50,19 +52,16 @@ const SelectSeat = () => {
 
     setLoading(true);
     try {
-      const res = await api.post("/booking/book", {
-        bus_id: busId,
-        seats: selectedSeats,
-        passengers,
-      });
 
+      const res = await BOOKINGseats(busId,selectedSeats,passengers)
       toast.success("Booking Successful!");
-
+      console.log(BusDetails)
       navigate(`/booking-success/${res.data.booking_id}`, {
         state: {
           seats: selectedSeats,
           amount: res.data.total_amount,
-          passengers
+          passengers,
+          BusDetails
         }
       });
     } catch (err) {

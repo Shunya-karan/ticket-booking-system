@@ -1,5 +1,6 @@
 import { useLocation, useParams, Link } from "react-router-dom";
 import Navbar from "../../components/Navbar";
+
 const BookingSuccess = () => {
   const { bookingId } = useParams();
   const { state } = useLocation();
@@ -7,7 +8,8 @@ const BookingSuccess = () => {
   const seats = state?.seats || [];
   const amount = state?.amount || 0;
   const passengers = state?.passengers || [];
-
+  const bus_details = state?.BusDetails || [];
+  console.log(bus_details)
   return (
     <><Navbar/>
     <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-green-50 py-12 px-4">
@@ -125,6 +127,64 @@ const BookingSuccess = () => {
               </div>
             </div>
 
+            {/* Bus Details */}
+
+            <div className="mb-6">
+              <div className="flex items-center gap-2 mb-4">
+                <svg className="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2" />
+                </svg>
+                <h2 className="text-xl font-bold text-gray-800">Bus Details</h2>
+              </div>
+              
+              <div className="bg-gradient-to-br from-purple-50 to-indigo-50 rounded-xl p-6 border-2 border-purple-200 shadow-sm">
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <p className="text-xs text-gray-500 font-medium mb-1">Bus Name</p>
+                    <p className="text-gray-800 font-bold text-lg">{bus_details.bus_name || 'N/A'}</p>
+                  </div>
+                  <div>
+                    <p className="text-xs text-gray-500 font-medium mb-1">Bus Number</p>
+                    <p className="text-gray-800 font-bold text-lg">{bus_details.bus_number || 'N/A'}</p>
+                  </div>
+                  <div>
+                    <p className="text-xs text-gray-500 font-medium mb-1">Bus Type</p>
+                    <p className="text-gray-800 font-semibold">{bus_details.bus_type || 'N/A'}</p>
+                  </div>
+                  <div>
+                    <p className="text-xs text-gray-500 font-medium mb-1">Travel Date</p>
+                    <p className="text-gray-800 font-semibold">{bus_details.travel_date || 'N/A'}</p>
+                  </div>
+                  <div>
+                    <p className="text-xs text-gray-500 font-medium mb-1">From</p>
+                    <p className="text-gray-800 font-bold">{bus_details.start_point || 'N/A'}</p>
+                  </div>
+                  <div>
+                    <p className="text-xs text-gray-500 font-medium mb-1">To</p>
+                    <p className="text-gray-800 font-bold">{bus_details.end_point || 'N/A'}</p>
+                  </div>
+                  <div>
+                    <p className="text-xs text-gray-500 font-medium mb-1">Departure Time</p>
+                    <p className="text-gray-800 font-semibold">{bus_details.departure_time || 'N/A'}</p>
+                  </div>
+                  <div>
+                    <p className="text-xs text-gray-500 font-medium mb-1">Arrival Time</p>
+                    <p className="text-gray-800 font-semibold">{bus_details.arrival_time || 'N/A'}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Seats Booked */}
+            <div className="mb-6">
+              <div className="flex items-center gap-2 mb-4">
+                <svg className="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                </svg>
+                <h2 className="text-xl font-bold text-gray-800">Seats Booked</h2>
+              </div>
+              </div>
+                
             {/* Important Information */}
             <div className="bg-blue-50 border-2 border-blue-200 rounded-xl p-5 mb-6">
               <div className="flex gap-3">

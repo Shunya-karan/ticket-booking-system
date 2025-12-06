@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { PostlogIn } from "../../services/authservice.js";
 import AuthInput from "../../components/AuthInput.jsx";
 import api from "../../services/api";
 import toast from "react-hot-toast";
@@ -14,6 +15,7 @@ import {Mail,
   Shield,
 } from "lucide-react";
 import { useAuth } from "../../context/AuthContext";
+
 
 
 const Login = () => {
@@ -37,15 +39,19 @@ const Login = () => {
     }
 
     try {
-      const res = await api.post("/auth/signin", {email, password });
+      const res = await PostlogIn(email,password);
 
       // const res_data=await res.json();
       console.log(res.data)
       login(res.data.token, res.data.user);
 
+      localStorage.setItem("user", JSON.stringify(res.data.user));
+      
       toast.success(
         `Login Successful! Welcome ${res.data.user.name}! 🎉`
       );
+      
+
 
       setTimeout(() => navigate("/"), 1200);
 

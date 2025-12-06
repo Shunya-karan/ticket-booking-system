@@ -8,6 +8,7 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { useState ,useEffect} from "react";
 import api from "../../services/api";
+import { GetpopularRoutes } from "../../services/busService";
 
 const Home = () => {
   const { isLoggedIn, user } = useAuth();
@@ -20,7 +21,7 @@ const Home = () => {
   useEffect(() => {
   const loadPopular = async () => {
     try {
-      const res = await api.get("/bus/popular-routes");
+      const res = await GetpopularRoutes();
       console.log("POPULAR ROUTES RESPONSE:", res.data);
       setPopularRoutes(res.data.routes);
     } catch (err) {
@@ -32,11 +33,7 @@ const Home = () => {
 }, []);
 
   const handleSearch = () => {
-    if (!from || !to || !date) {
-      toast.error("All fields are required");
-      return
-    }
-    navigate(`/search-bus?from=${from}&to=${to}&date=${date}`);
+    navigate(`/search-bus?from=${from}&to=${to}&date=${date||""}`);
 
 
 
