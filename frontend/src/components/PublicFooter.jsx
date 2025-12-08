@@ -9,7 +9,6 @@ const PublicFooter = () => {
         <a href="/privacy-policy" className="hover:text-orange-600">Privacy Policy</a>
       </div>
     </footer>
-  );
-};
+  );};
 
 export default PublicFooter;

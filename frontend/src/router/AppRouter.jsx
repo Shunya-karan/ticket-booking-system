@@ -15,7 +15,22 @@ import MyProfile from "../pages/user/MyProfile";
 import SelectSeat from "../pages/user/SelectSeat";
 import BookingSuccess from "../pages/user/BookingSuccess";
 
+// Admin pages
+
+import AdminDashboard from "../pages/admin/Dashboard";
+import AllBuses from "../pages/admin/AllBuses";
+import AddBus from "../pages/admin/AddBus";
+import EditBus from "../pages/admin/EditBus";
+import ActiveBusAdmin from "../pages/admin/ActiveBuses";
+import BusBookings from "../pages/admin/BusBookings";
+import AdminProfile from "../pages/admin/profile";
+
+
 import ProtectedRoute from "./ProtectedRoute";
+import AdminRoute from "./AdminProtectedRoute";
+
+import AdminLayout from "../layouts/AdminLayoutes";
+
 import ActiveBuses from "../pages/Activebus";
 import Ticket from "../pages/Ticket";
 
@@ -27,7 +42,7 @@ export default function AppRouter() {
         {/* Public Routes */}
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact/>}/>
+        <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
 
@@ -40,7 +55,7 @@ export default function AppRouter() {
             </ProtectedRoute>
           }
         />
-        
+
         <Route
           path="/bus-details/:busId"
           element={
@@ -97,12 +112,31 @@ export default function AppRouter() {
           path="/ticket/:booking_id"
           element={
             <ProtectedRoute>
-              <Ticket/>
+              <Ticket />
             </ProtectedRoute>
           }
         />
 
-        
+        {/* ADMIN ROUTES */}
+        <Route
+  path="/admin"
+  element={
+    <AdminRoute>
+      <AdminLayout />
+    </AdminRoute>
+  }
+>
+  <Route index element={<AdminDashboard />} />
+  <Route path="buses" element={<AllBuses />} />
+  <Route path="add-bus" element={<AddBus />} />
+  <Route path="edit-bus/:bus_id" element={<EditBus />} />
+  <Route path="Active-bus" element={<ActiveBusAdmin />} />
+  <Route path="bus-bookings/:bus_id" element={<BusBookings />} />
+  <Route path="profile" element={<AdminProfile />} />
+</Route>
+
+
+
 
         {/* 404 */}
         <Route path="*" element={<h1>Page Not Found</h1>} />

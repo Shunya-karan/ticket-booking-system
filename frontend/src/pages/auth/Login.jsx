@@ -17,7 +17,6 @@ import {Mail,
 import { useAuth } from "../../context/AuthContext";
 
 
-
 const Login = () => {
   
   const navigate = useNavigate();
@@ -56,8 +55,11 @@ const Login = () => {
         `Login Successful! Welcome ${res.data.user.name}! 🎉`
       );
       
-      
-      setTimeout(() => navigate("/"), 1200);
+      if (res.data.user.role==="admin"){
+      setTimeout(() => navigate("/admin"), 1200);
+      }else{
+        setTimeout(()=>navigate("/"),1200);
+      }
 
       setEmail("");
       setPassword("");
@@ -184,7 +186,6 @@ const Login = () => {
                 {/* Form */}
                 <form onSubmit={handleSignin} className="space-y-5">
                   
-
                   {/* Email */}
                   <div>
                     <label className="block text-sm font-bold text-gray-700 mb-2">
@@ -215,7 +216,7 @@ const Login = () => {
                         placeholder="Enter your password"
                         value={password}
                         onChange={setPassword}
-                        autoComplete="new-password"
+                        // autoComplete="new-password"
                       />
                     </div>
                     <p className="text-xs text-gray-500 mt-2">

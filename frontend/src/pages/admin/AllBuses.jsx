@@ -1,12 +1,12 @@
-const AddBus  = ()=>{
+const AllBuses  = ()=>{
     return(
         <div>
         {/* <AuthNavbar/> */}
-        <h1>Add bus</h1>
+        <h1>All bus</h1>
         </div>
     )
 }
-export default AddBus 
+export default AllBuses 
 
 
 
