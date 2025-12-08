@@ -2,8 +2,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 // Public pages
 import Home from "../pages/forall/Home";
-import About from "../pages/forall/About";
-import Contact from "../pages/forall/Contact";
+import About from "../pages/forall/about";
+import Contact from "../pages/forall/contact";
 import Login from "../pages/auth/Login";
 import Signup from "../pages/auth/Signup";
 
@@ -16,6 +16,8 @@ import SelectSeat from "../pages/user/SelectSeat";
 import BookingSuccess from "../pages/user/BookingSuccess";
 
 import ProtectedRoute from "./ProtectedRoute";
+import ActiveBuses from "../pages/Activebus";
+import Ticket from "../pages/Ticket";
 
 export default function AppRouter() {
   return (
@@ -25,7 +27,7 @@ export default function AppRouter() {
         {/* Public Routes */}
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
+        <Route path="/contact" element={<Contact/>}/>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
 
@@ -83,6 +85,24 @@ export default function AppRouter() {
             </ProtectedRoute>
           }
         />
+        <Route
+          path="/Active-bus"
+          element={
+            <ProtectedRoute>
+              <ActiveBuses />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/ticket/:booking_id"
+          element={
+            <ProtectedRoute>
+              <Ticket/>
+            </ProtectedRoute>
+          }
+        />
+
+        
 
         {/* 404 */}
         <Route path="*" element={<h1>Page Not Found</h1>} />

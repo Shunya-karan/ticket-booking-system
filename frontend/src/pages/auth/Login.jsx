@@ -24,10 +24,15 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const { login,isLoggedIn } = useAuth();
+  const { login,isLoggedIn,user } = useAuth();
 
   if (isLoggedIn) {
-    return <Navigate to="/" replace />;
+    if (user?.role==="admin"){
+    return <Navigate to="/admin" replace />;
+    }
+    else{
+      return <Navigate to="/" replace />;
+    }
   }
   const handleSignin = async (e) => {
     e.preventDefault();
@@ -51,8 +56,7 @@ const Login = () => {
         `Login Successful! Welcome ${res.data.user.name}! 🎉`
       );
       
-
-
+      
       setTimeout(() => navigate("/"), 1200);
 
       setEmail("");

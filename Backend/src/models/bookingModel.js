@@ -65,12 +65,6 @@ static async getBookingById(booking_id) {
     );
     return rows;
 }
-// static async removePassengerDetails(booking_id, seatsToRemove) {
-//   await pool.query(
-//     `DELETE FROM passengers WHERE booking_id = ? AND seat_number IN (?)`,
-//     [booking_id, seatsToRemove]
-//   );
-// }
 
 
     static async removeSeats(booking_id, seatsToRemove) {

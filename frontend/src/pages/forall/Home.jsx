@@ -43,7 +43,7 @@ const Home = () => {
       {/* NAVBARS */}
       {!isLoggedIn && <AuthNavbar />}
       {isLoggedIn && user?.role === "user" && <UserNavbar />}
-      {isLoggedIn && user?.role === "admin" && <AdminNavbar />}
+      
 
       {/* HERO SECTION WITH VIDEO */}
       <section className="relative h-[60vh] sm:h-[70vh] lg:h-[85vh] overflow-hidden">

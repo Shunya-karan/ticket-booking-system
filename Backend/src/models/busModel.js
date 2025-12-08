@@ -98,9 +98,14 @@ export default class BUS {
 
 
     static async getActiveBus() {
-        const [rows] = await pool.query(`select * from buses WHERE travel_date>=CURDATE() ORDER BY travel_date ASC`);
-        return rows;
-    }
+  const [rows] = await pool.query(`
+    SELECT * FROM buses 
+    WHERE DATE(travel_date) >= CURDATE() 
+    ORDER BY travel_date ASC
+  `);
+  return rows;
+}
+
 
     static async getBusById(bus_id) {
         const [rows] = await pool.query(`select * from buses where id=?`, [bus_id]);

@@ -8,3 +8,6 @@ export const SEARCHbus=(from,to,date)=>
 
 export const GetpopularRoutes = ()=>
     api.get("/bus/popular-routes");
+
+export const GetActiveBus = ()=>
+    api.get("/bus/list");

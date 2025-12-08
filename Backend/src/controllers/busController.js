@@ -3,7 +3,7 @@ import BUS from "../models/busModel.js";
 import BOOKING from "../models/bookingModel.js";
 
 
-// ADD BUS
+// ADD BUS (ADMIN)
 export const addBus = async (req, res) => {
     try {
         const {
@@ -49,7 +49,7 @@ export const getAllBuses = async (req, res) => {
     }
 };
 
-// UPDATE BUS
+// UPDATE BUS (ADMIN)
 export const updateBus = async (req, res) => {
     try {
         const busId = req.params.bus_id;
@@ -66,7 +66,7 @@ export const updateBus = async (req, res) => {
     }
 };
 
-// DELETE BUS
+// DELETE BUS (ADMIN)
 export const deletingBus = async (req, res) => {
     try {
         const busId = req.params.bus_id;
@@ -83,7 +83,7 @@ export const deletingBus = async (req, res) => {
     }
 };
 
-// SEARCH BUSES
+// SEARCH BUSES 
 export const getSearchBuses = async (req, res) => {
   try {
     const { from, to, date } = req.query;
@@ -114,8 +114,7 @@ export const getSearchBuses = async (req, res) => {
   }
 };
 
-
-// ACTIVE BUSES
+// ACTIVE BUSES 
 export const getAllActiveBus = async (req, res) => {
     try {
         const buses = await BUS.getActiveBus();

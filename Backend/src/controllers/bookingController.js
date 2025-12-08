@@ -64,7 +64,7 @@ export const cancelSelectedSeats = async (req, res) => {
             return res.status(400).json({ error: "Seats array is required" });
         }
 
-        // 1. Fetch booking
+        // Fetch booking
         const booking = await BOOKING.getBookingById(booking_id);
         if (!booking) return res.status(404).json({ error: "Booking not found" });
 
@@ -74,14 +74,14 @@ export const cancelSelectedSeats = async (req, res) => {
         if (booking.status === "CANCELLED")
             return res.status(400).json({ error: "Booking already cancelled" });
 
-        // 2. Fetch bus
+        // Fetch bus
         const bus = await BUS.getBusById(booking.bus_id);
 
-        // 3. Fetch booked seats
+        // Fetch booked seats
         const bookedSeats = await BOOKING.getBookedSeatsById(booking_id);
         const bookedSeatList = bookedSeats.map(s => s.seat_number);
 
-        // 4. Validate seats belong to this booking
+        // Validate seats belong to this booking
         const invalidSeats = seats.filter(s => !bookedSeatList.includes(s));
         if (invalidSeats.length > 0) {
             return res.status(400).json({
@@ -90,13 +90,13 @@ export const cancelSelectedSeats = async (req, res) => {
             });
         }
 
-        // 5. Remove seats + passenger details
+        // Remove seats + passenger details
         await BOOKING.removeSeats(booking_id, seats);
 
-        // 6. Remaining seats
+        // Remaining seats
         const remainingSeats = bookedSeatList.filter(seat => !seats.includes(seat));
 
-        // 7. If no seats remain → cancel entire booking
+        // If no seats remain → cancel entire booking
         if (remainingSeats.length === 0) {
             await BOOKING.cancelEntireBooking(booking_id);
 
@@ -106,7 +106,7 @@ export const cancelSelectedSeats = async (req, res) => {
             });
         }
 
-        // 8. Update booking amount
+        // Update booking amount
         const newAmount = remainingSeats.length * bus.price;
         await BOOKING.updateBookingAmount(booking_id, newAmount);
 
@@ -171,6 +171,7 @@ export const getMyBookings = async (req, res) => {
         return res.json({ message: err.message })
     }
 }
+// getallbookings of particular bus(ADMIN)
 
 export const getAllBookingofBus = async (req, res) => {
     try {

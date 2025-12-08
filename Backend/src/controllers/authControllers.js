@@ -23,7 +23,7 @@ export const createUser = async (req, res, next) => {
         const hashpass = await bcrypt.hash(password, 10);
 
         const result = await USER.signUp({ name, email, password: hashpass });
-        const newUserId = result.insertId;   // ⭐ MySQL gives insertId, not id
+        const newUserId = result.insertId;   
 
         return res.status(201).json({
             message: "User registered successfully",
