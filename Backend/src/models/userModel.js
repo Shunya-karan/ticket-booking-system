@@ -20,6 +20,10 @@ export default class USER {
     const [rows] = await pool.query(`SELECT id, name, email FROM users WHERE id = ?`, [id]);
     return rows.length > 0 ? rows[0] : null;
   }
-
+  
+  static async countUsers() {
+  const [rows] = await pool.query("SELECT COUNT(*) AS total FROM users");
+  return rows[0].total;
+}
 
 }

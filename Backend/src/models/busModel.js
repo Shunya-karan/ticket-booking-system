@@ -25,7 +25,7 @@ export default class BUS {
         return result;
     }
 
-    
+
     static async getAllBus() {
         const [result] = await pool.query("SELECT * FROM buses ORDER BY travel_date ASC");
         // console.log(result)
@@ -98,13 +98,13 @@ export default class BUS {
 
 
     static async getActiveBus() {
-  const [rows] = await pool.query(`
+        const [rows] = await pool.query(`
     SELECT * FROM buses 
     WHERE DATE(travel_date) >= CURDATE() 
     ORDER BY travel_date ASC
   `);
-  return rows;
-}
+        return rows;
+    }
 
 
     static async getBusById(bus_id) {
@@ -114,18 +114,43 @@ export default class BUS {
 
     static async getPopularRoutes() {
         const [rows] = await pool.query(`
-    SELECT start_point AS from_city,
-           end_point AS to_city,
-           COUNT(*) AS total_buses
-    FROM buses
-    GROUP BY start_point, end_point
-    ORDER BY total_buses DESC
+    SELECT 
+      b.start_point AS from_city,
+      b.end_point AS to_city,
+      COUNT(DISTINCT b.id) AS total_buses,
+      COUNT(bk.id) AS total_bookings
+    FROM buses b
+    LEFT JOIN bookings bk ON bk.bus_id = b.id
+    GROUP BY b.start_point, b.end_point
+    ORDER BY total_bookings DESC
     LIMIT 6;
   `);
 
         return rows;
     }
 
+    static async countAllBuses() {
+        const [rows] = await pool.query("SELECT COUNT(*) AS total FROM buses");
+        return rows[0].total;
+    }
+
+    static async countActiveBuses() {
+        const [rows] = await pool.query(
+            "SELECT COUNT(*) AS total FROM buses WHERE DATE(travel_date) >= CURDATE()"
+        );
+        return rows[0].total;
+    }
+
+    static async getUpcomingBuses() {
+  const [rows] = await pool.query(
+    `SELECT id, bus_name, start_point, end_point, travel_date 
+     FROM buses
+     WHERE travel_date >= CURDATE()
+     ORDER BY travel_date ASC
+     LIMIT 5`
+  );
+  return rows;
+}
 
 }
 

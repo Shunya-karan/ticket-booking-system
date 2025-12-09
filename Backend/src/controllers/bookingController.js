@@ -173,46 +173,8 @@ export const getMyBookings = async (req, res) => {
 }
 // getallbookings of particular bus(ADMIN)
 
-export const getAllBookingofBus = async (req, res) => {
-    try {
-        const bus_id = req.params.bus_id
-
-        const bus = await BUS.getBusById(bus_id);
-        if (!bus) {
-            return res.status(500).json({ message: "Bus not found" })
-        }
-
-        const bookings = await BOOKING.getAllBookingof(bus_id)
-
-        if (bookings.length === 0) {
-            return res.status(200).json({
-                message: "No bookings found"
-            });
-        }
-
-        for (let booking of bookings) {
-            const seats = await BOOKING.getBookedSeatsById(booking.id);
-            booking.seats = seats.map(s => s.seat_number);
-            console.log(booking.seats)
-
-            const User = await USER.getUserbyId(booking.user_id);
-            booking.user = {
-                id: User.id,
-                name: User.name,
-                email: User.email
-            };
-
-        }
-        return res.status(200).json({
-            message: "Bookings fetched successfully",
-            bus_id,
-            bus_name: bus.bus_name,
-            bookings
-        });
 
 
-    } catch (err) {
-        return res.status(500).json({ error: err.message })
-    }
 
-}
+
+

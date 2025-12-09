@@ -6,6 +6,8 @@ import { fileURLToPath } from "url";
 import authRoutes from "./routes/authRoutes.js";
 import busRoutes from "./routes/busRoutes.js";
 import bookingRoutes from "./routes/bookingRoutes.js";
+import adminroutes from "./routes/adminroute.js"
+
 
 const app = express();
 
@@ -20,6 +22,7 @@ const __dirname = path.dirname(__filename);
 app.use("/api/auth", authRoutes);
 app.use("/api/bus", busRoutes);
 app.use("/api/booking", bookingRoutes);
+app.use("/api/admin",adminroutes)
 
 // Serve frontend build
 const distPath = path.join(__dirname, "../../frontend/dist");

@@ -17,7 +17,7 @@ import BookingSuccess from "../pages/user/BookingSuccess";
 
 // Admin pages
 
-import AdminDashboard from "../pages/admin/Dashboard";
+import AdminDashboard from "../pages/admin/dashboard";
 import AllBuses from "../pages/admin/AllBuses";
 import AddBus from "../pages/admin/AddBus";
 import EditBus from "../pages/admin/EditBus";
