@@ -3,7 +3,7 @@ import api from "../../services/api";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { BusFront, Pencil, Trash2, PlusCircle } from 'lucide-react'; // Added icons for flair
-import { deleteBus, getActivebuses } from "../../services/adminService";
+import { deleteBus, getAllBuses } from "../../services/adminService";
 
 export default function AllBuses() {
   const [buses, setBuses] = useState([]);
@@ -17,7 +17,7 @@ export default function AllBuses() {
   const loadAllbuses = async () => {
     setLoading(true); // Start loading
     try {
-      const res = await getActivebuses();
+      const res = await getAllBuses();
       setBuses(res.data.buses);
     } catch (err) {
       toast.error(err.response?.data?.message || "Failed to fetch buses");

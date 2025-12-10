@@ -1,6 +1,5 @@
 import BOOKING from "../models/bookingModel.js";
 import BUS from "../models/busModel.js";
-import USER from "../models/userModel.js";
 
 
 export const bookseats = async (req, res) => {

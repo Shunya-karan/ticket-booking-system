@@ -17,7 +17,8 @@ import BookingSuccess from "../pages/user/BookingSuccess";
 
 // Admin pages
 
-import AdminDashboard from "../pages/admin/dashboard";
+import AdminDashboard
+ from "../pages/admin/Dashboard";
 import AllBuses from "../pages/admin/AllBuses";
 import AddBus from "../pages/admin/AddBus";
 import EditBus from "../pages/admin/EditBus";
@@ -129,7 +130,7 @@ export default function AppRouter() {
   <Route index element={<AdminDashboard />} />
   <Route path="buses" element={<AllBuses />} />
   <Route path="add-bus" element={<AddBus />} />
-  <Route path="edit-bus/:bus_id" element={<EditBus />} />
+  <Route path="edit-bus/:bus_id" element={<EditBus/>} />
   <Route path="Active-bus" element={<ActiveBusAdmin />} />
   <Route path="bus-bookings/:bus_id" element={<BusBookings />} />
   <Route path="profile" element={<AdminProfile />} />

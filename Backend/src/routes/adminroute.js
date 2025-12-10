@@ -1,7 +1,7 @@
 import { Router } from "express";
 import authMiddleware from "../middleware/authMiddleware.js";
 import { adminMiddleware } from "../middleware/adminMiddleware.js";
-import { addBus, deletingBus, getActiveBus, getAdminStats,getAllBookingofBus, getAllBuses, getRecentBookings, getRevenueOverview, getUpcomingBuses, updateBus } from "../controllers/adminController.js";
+import { addBus, deletingBus, getActiveBus, getAdminProfile, getAdminStats,getAllBookingofBus, getAllBuses, getRecentBookings, getRevenueOverview, getSingleBus, getUpcomingBuses, updateAdminProfile, updateBus } from "../controllers/adminController.js";
 
 
 const router= Router();
@@ -25,6 +25,12 @@ router.get("/recent-bookings", getRecentBookings);
 router.get("/revenue", getRevenueOverview);
 
 router.get("/upcoming-buses", getUpcomingBuses);
+
+router.get("/bus-detail/:bus_id", authMiddleware, adminMiddleware, getSingleBus);
+
+router.get("/profile", authMiddleware, adminMiddleware, getAdminProfile);
+
+router.put("/profile", authMiddleware, adminMiddleware, updateAdminProfile);
 
 
 export default router

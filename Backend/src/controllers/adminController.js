@@ -202,3 +202,61 @@ export const getUpcomingBuses = async (req, res) => {
   }
 };
 
+export const getSingleBus = async (req, res) => {
+  try {
+    const busId = req.params.bus_id;
+    const bus = await BUS.getBusById(busId);
+
+    if (!bus) {
+      return res.status(404).json({ message: "Bus not found" });
+    }
+
+    if (typeof bus.bus_images === "string") {
+      bus.bus_images = JSON.parse(bus.bus_images);
+    }
+
+    return res.status(200).json({ bus });
+  } catch (err) {
+    return res.status(500).json({ error: err.message });
+  }
+};
+
+
+export const getAdminProfile = async (req, res) => {
+  try {
+    const adminId = req.user.id;
+
+    const admin = await USER.getUserbyId(adminId);
+
+    if (!admin || admin.role !== "admin") {
+      return res.status(404).json({ message: "Admin not found" });
+    }
+
+    delete admin.password; 
+
+    return res.status(200).json({ admin });
+
+  } catch (err) {
+    return res.status(500).json({ error: err.message });
+  }
+};
+
+export const updateAdminProfile = async (req, res) => {
+  try {
+    const adminId = req.user.id;
+    const { name, password } = req.body;
+
+    const payload = {};
+
+    if (name) payload.name = name;
+    // if (profile_image) payload.profile_image = profile_image;
+    if (password) payload.password = password; // You can hash here
+
+    await USER.updateUser(adminId, payload);
+
+    return res.status(200).json({ message: "Profile updated successfully" });
+
+  } catch (err) {
+    return res.status(500).json({ error: err.message });
+  }
+};

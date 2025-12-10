@@ -35,48 +35,76 @@ export default class BUS {
     }
 
     static async updateBusDetails(bus_id, data) {
-        let {
-            bus_name, bus_number, bus_type, bus_images, start_point, end_point, travel_date, departure_time, arrival_time, price } = data;
+    let {
+        bus_name,
+        bus_number,
+        bus_type,
+        bus_images,
+        start_point,
+        end_point,
+        travel_date,
+        departure_time,
+        arrival_time,
+        price
+    } = data;
 
-        // If bus_images is JSON string → parse it
-        if (typeof bus_images === "string") {
-            try {
-                bus_images = JSON.parse(bus_images);
-            } catch (err) {
-                bus_images = null;
-            }
-        }// If bus_images is array → string
-        if (Array.isArray(bus_images)) {
-            bus_images = JSON.stringify(bus_images);
-        }
-
-        const [oldData] = await pool.query("SELECT bus_type FROM buses WHERE id = ?", [bus_id]);
-
-        const old_type = oldData[0].bus_type.toLowerCase();
-        let seat_layout = null;
-
-        // If bus type changed → generate new layout
-        if (old_type !== bus_type.toLowerCase()) {
-            if (bus_type.toLowerCase() === "sleeper") {
-                seat_layout = SEAT_LAYOUTS.sleeper_32;
-            } else {
-                seat_layout = SEAT_LAYOUTS.seater_40;
-            }
-            seat_layout = JSON.stringify(seat_layout);
-        }
-        console.log(seat_layout)
-
-
-
-        const [result] = await pool.query(
-            `UPDATE buses 
-         SET bus_name=?, bus_number=?, bus_type=?, bus_images=?, 
-             start_point=?, end_point=?, travel_date=?, 
-             departure_time=?, arrival_time=?, price=?,seat_layout = COALESCE(?, seat_layout)
-         WHERE id=?`,
-            [bus_name, bus_number, bus_type, bus_images, start_point, end_point, travel_date, departure_time, arrival_time, price, seat_layout, bus_id]);
-        return result;
+    // Convert images to JSON
+    if (Array.isArray(bus_images)) {
+        bus_images = JSON.stringify(bus_images);
     }
+
+    // Get old bus type
+    const [oldData] = await pool.query(
+        "SELECT bus_type FROM buses WHERE id = ?",
+        [bus_id]
+    );
+
+    const old_type = oldData[0].bus_type.toLowerCase();
+    const new_type = bus_type.toLowerCase();
+
+    let seat_layout = null;
+
+    // If type changed → generate new seat layout
+    if (old_type !== new_type) {
+        seat_layout =
+            new_type === "sleeper"
+                ? JSON.stringify(SEAT_LAYOUTS.sleeper_32)
+                : JSON.stringify(SEAT_LAYOUTS.seater_40);
+    }
+
+    // Update base fields (always)
+    await pool.query(
+        `UPDATE buses 
+        SET bus_name=?, bus_number=?, bus_type=?, bus_images=?, 
+            start_point=?, end_point=?, travel_date=?, departure_time=?, 
+            arrival_time=?, price=?
+        WHERE id=?`,
+        [
+            bus_name,
+            bus_number,
+            bus_type,
+            bus_images,
+            start_point,
+            end_point,
+            travel_date,
+            departure_time,
+            arrival_time,
+            price,
+            bus_id
+        ]
+    );
+
+    // Update seat_layout only if changed
+    if (seat_layout) {
+        await pool.query(
+            `UPDATE buses SET seat_layout=? WHERE id=?`,
+            [seat_layout, bus_id]
+        );
+    }
+
+    return { affectedRows: 1 };
+}
+
 
     static async deleteBus(bus_id) {
         const [result] = await pool.query("Delete from buses where id =?", [bus_id]);
