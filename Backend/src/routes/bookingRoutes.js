@@ -11,6 +11,7 @@ router.post("/book",authMiddleware,bookseats)
 router.patch("/cancel-seats/:booking_id",authMiddleware,cancelSelectedSeats
 );
 
+
 router.get('/my-bookings',authMiddleware,getMyBookings)
 
 

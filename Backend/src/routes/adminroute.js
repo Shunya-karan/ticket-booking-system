@@ -30,6 +30,7 @@ router.get("/bus-detail/:bus_id", authMiddleware, adminMiddleware, getSingleBus)
 
 router.get("/profile", authMiddleware, adminMiddleware, getAdminProfile);
 
+
 router.put("/profile", authMiddleware, adminMiddleware, updateAdminProfile);
 
 
