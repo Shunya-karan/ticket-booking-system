@@ -1,6 +1,5 @@
 import { Router } from "express";
- import authMiddleware from "../middleware/authMiddleware.js";
- import { adminMiddleware } from "../middleware/adminMiddleware.js";
+
  import { getSearchBuses,getAllActiveBus ,getBusDetails,getPopularRoutes} from "../controllers/busController.js";
  
 

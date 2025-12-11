@@ -4,7 +4,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 
 import authRoutes from "./routes/authRoutes.js";
-import busRoutes from "./routes/busRoutes.js";
+import busRoutes from "./routes/busroutes.js";
 import bookingRoutes from "./routes/bookingRoutes.js";
 import adminroutes from "./routes/adminroute.js"
 
