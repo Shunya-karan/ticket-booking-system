@@ -4,9 +4,9 @@ import path from "path";
 import { fileURLToPath } from "url";
 
 import authRoutes from "./routes/authRoutes.js";
-import busRoutes from "./routes/busroutes.js";
+import busRoutes from "./routes/busRoutes.js";
 import bookingRoutes from "./routes/bookingRoutes.js";
-import adminroutes from "./routes/adminroute.js"
+import adminroutes from "./routes/adminRoute.js"
 
 
 const app = express();
