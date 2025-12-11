@@ -3,10 +3,11 @@ import cors from "cors";
 import path from "path";
 import { fileURLToPath } from "url";
 
-import authRoutes from "./routes/authRoutes.js";
-import busRoutes from "./routes/busRoutes.js";
-import bookingRoutes from "./routes/bookingRoutes.js";
-import adminroutes from "./routes/adminRoute.js"
+import authRoutes from "./routes/AuthRoutes.js";
+import busRoutes from "./routes/BusRoutes.js";
+import bookingRoutes from "./routes/BookingRoutes.js";
+
+import adminroutes from "./routes/AdminRoute.js"
 
 
 const app = express();
