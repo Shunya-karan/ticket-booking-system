@@ -3,36 +3,42 @@ import { PostlogIn } from "../../services/authservice.js";
 import AuthInput from "../../components/AuthInput.jsx";
 import api from "../../services/api";
 import toast from "react-hot-toast";
-import { useNavigate ,Navigate} from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 import AuthNavbar from "../../components/AuthNavbar.jsx";
 import IMAGES from "../../assets/image.js";
-import {Mail,
+import {
+  Mail,
   Lock,
   User,
   ArrowRight,
   MapPin,
   Clock,
   Shield,
+  Eye,
+  EyeOff
 } from "lucide-react";
 import { useAuth } from "../../context/AuthContext";
 
 
 const Login = () => {
-  
+
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const { login,isLoggedIn,user } = useAuth();
+  const { login, isLoggedIn, user } = useAuth();
+  const [showPassword, setShowPassword] = useState(false);
+
 
   if (isLoggedIn) {
-    if (user?.role==="admin"){
-    return <Navigate to="/admin" replace />;
+    if (user?.role === "admin") {
+      return <Navigate to="/admin" replace />;
     }
-    else{
+    else {
       return <Navigate to="/" replace />;
     }
   }
+
   const handleSignin = async (e) => {
     e.preventDefault();
     setIsLoading(true)
@@ -43,30 +49,36 @@ const Login = () => {
     }
 
     try {
-      const res = await PostlogIn(email,password);
+      const res = await PostlogIn(email, password);
 
       // const res_data=await res.json();
-      console.log(res.data)
+      // console.log(res.data)
       login(res.data.token, res.data.user);
 
       localStorage.setItem("user", JSON.stringify(res.data.user));
-      
+
       toast.success(
         `Login Successful! Welcome ${res.data.user.name}! 🎉`
       );
-      
-      if (res.data.user.role==="admin"){
-      setTimeout(() => navigate("/admin"), 1200);
-      }else{
-        setTimeout(()=>navigate("/"),1200);
-      }
 
       setEmail("");
       setPassword("");
+
+      if (res.data.user.role === "admin") {
+        setTimeout(() => navigate("/admin"), 1200);
+      } else {
+        setTimeout(() => navigate("/"), 1200);
+      }
+
+      
     } catch (err) {
       toast.error(err.response?.data?.error || "Login failed");
       setIsLoading(false)
     }
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
   };
 
   return (
@@ -185,7 +197,7 @@ const Login = () => {
 
                 {/* Form */}
                 <form onSubmit={handleSignin} className="space-y-5">
-                  
+
                   {/* Email */}
                   <div>
                     <label className="block text-sm font-bold text-gray-700 mb-2">
@@ -212,12 +224,25 @@ const Login = () => {
                     <div className="relative">
                       <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
                       <AuthInput
-                        type="password"
+                        type={showPassword ? "text" : "password"}
+
                         placeholder="Enter your password"
                         value={password}
                         onChange={setPassword}
-                        // autoComplete="new-password"
+
                       />
+                      <button
+                        type="button"
+                        onClick={togglePasswordVisibility}
+                        className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 focus:outline-none transition-colors"
+                        aria-label={showPassword ? "Hide password" : "Show password"}
+                      >
+                        {showPassword ? (
+                          <EyeOff className="w-5 h-5" />
+                        ) : (
+                          <Eye className="w-5 h-5" />
+                        )}
+                      </button>
                     </div>
                     <p className="text-xs text-gray-500 mt-2">
                       Must be at least 6 characters

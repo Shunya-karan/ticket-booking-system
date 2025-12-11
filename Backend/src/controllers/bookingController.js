@@ -1,57 +1,73 @@
+
 import BOOKING from "../models/bookingModel.js";
 import BUS from "../models/busModel.js";
-
+import USER from "../models/userModel.js";
+import { sendEmail } from "../utils/mailer.js";
 
 export const bookseats = async (req, res) => {
+  try {
+    const user_id = req.user.id;
+    const { bus_id, seats, passengers } = req.body;
 
-    try {
-        const user_id = req.user.id;
-        const { bus_id, seats, passengers } = req.body;
-
-        if (!bus_id || !Array.isArray(seats) || seats.length === 0) {
-            return res.status(400).json({ error: "bus_id and seats[] are required" });
-        }
-
-        if (!passengers || passengers.length !== seats.length) {
-            return res.status(400).json({ error: "passengers Info required for each seats" });
-
-        }
-
-        const bus = await BUS.getBusById(bus_id);
-        if (!bus) {
-            return res.status(404).json({ error: "BUS NOT FOUND" });
-        }
-
-        const alreadyBookedSeat = await BOOKING.checkSeatAvailability(bus_id, seats);
-        if (alreadyBookedSeat.length > 0) {
-            return res.status(409).json({
-                error: "some seats already booked",
-                seats: alreadyBookedSeat.map(s => s.seat_number)
-            });
-        }
-
-        const total_amount = seats.length * bus.price;
-
-        const booking_id = await BOOKING.createBooking(user_id, bus_id, total_amount);
-
-        await BOOKING.saveBookedSeats(booking_id, bus_id, seats);
-
-        await BOOKING.savePassengerDetails(booking_id, seats, passengers)
-
-        return res.status(201).json({
-            message: "Booking successful",
-            booking_id,
-            seats,
-            total_amount
-        });
-
-
-    } catch (err) {
-        return res.status(500).json({
-            error: err.message
-        })
+    if (!bus_id || !Array.isArray(seats) || seats.length === 0) {
+      return res.status(400).json({ error: "bus_id and seats[] are required" });
     }
-}
+
+    if (!passengers || passengers.length !== seats.length) {
+      return res.status(400).json({ error: "passengers Info required for each seats" });
+    }
+
+    const bus = await BUS.getBusById(bus_id);
+    if (!bus) return res.status(404).json({ error: "BUS NOT FOUND" });
+
+    const alreadyBookedSeat = await BOOKING.checkSeatAvailability(bus_id, seats);
+    if (alreadyBookedSeat.length > 0) {
+      return res.status(409).json({
+        error: "Some seats already booked",
+        seats: alreadyBookedSeat.map(s => s.seat_number),
+      });
+    }
+
+    const total_amount = seats.length * bus.price;
+
+    const booking_id = await BOOKING.createBooking(user_id, bus_id, total_amount);
+    await BOOKING.saveBookedSeats(booking_id, bus_id, seats);
+    await BOOKING.savePassengerDetails(booking_id, seats, passengers);
+
+    // 🔥 Fetch user data for email
+    const user = await USER.getUserbyId(user_id);
+
+    // 🔥 SEND EMAIL CONFIRMATION
+    const emailHTML = `
+      <h2>Your Bus Ticket is Confirmed 🎉</h2>
+      <p>Hi <b>${user.name}</b>, thank you for booking with BusBuddy!</p>
+      
+      <h3>Booking Details:</h3>
+      <p><b>Bus:</b> ${bus.bus_name}</p>
+      <p><b>Route:</b> ${bus.start_point} → ${bus.end_point}</p>
+      <p><b>Date:</b> ${bus.travel_date}</p>
+      <p><b>Seats:</b> ${seats.join(", ")}</p>
+      <p><b>Total Paid:</b> ₹${total_amount}</p>
+      
+      <br/>
+      <p>Safe Travels! 🚍</p>
+      <p><b>BusBuddy Team</b></p>
+    `;
+
+    sendEmail(user.email, "Your BusBuddy Ticket is Confirmed 🎫", emailHTML);
+
+    return res.status(201).json({
+      message: "Booking successful & email sent",
+      booking_id,
+      seats,
+      total_amount,
+    });
+
+  } catch (err) {
+    return res.status(500).json({ error: err.message });
+  }
+};
+
 
 export const cancelSelectedSeats = async (req, res) => {
     try {

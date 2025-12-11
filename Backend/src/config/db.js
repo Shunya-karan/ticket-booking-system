@@ -12,12 +12,4 @@ const pool = mysql.createPool({
     connectionLimit: 10
 });
 
-// check connection
-// try {
-//     const [rows] = await pool.query("SELECT * from users");
-//     console.log("MySQL Test Query OK:", rows[1]);
-// } catch (error) {
-//     console.error("MySQL Connection Error:", error);
-// }
-
 export default pool;

@@ -14,8 +14,8 @@ export const addBus = async (req, res) => {
             !bus_images ||!Array.isArray(bus_images) ||bus_images.length === 0 ||!start_point ||!end_point ||!travel_date ||!departure_time ||!arrival_time ||!price) {
             return res.status(400).json({ message: "All fields are required, including images" });
         }
-        console.log("BUS IMAGES RECEIVED:", bus_images);
-        console.log("TYPE:", typeof bus_images);
+        // console.log("BUS IMAGES RECEIVED:", bus_images);
+        // console.log("TYPE:", typeof bus_images);
 
         const result = await BUS.addBus({
             bus_name,bus_number,bus_type,bus_images,start_point,end_point, travel_date,departure_time,arrival_time,price });
@@ -144,7 +144,7 @@ export const getAllBookingofBus = async (req, res) => {
         for (let booking of bookings) {
             const seats = await BOOKING.getBookedSeatsById(booking.id);
             booking.seats = seats.map(s => s.seat_number);
-            console.log(booking.seats)
+            // console.log(booking.seats)
 
             const User = await USER.getUserbyId(booking.user_id);
             booking.user = {

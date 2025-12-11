@@ -21,7 +21,7 @@ export default class BUS {
                 JSON.stringify(bus_images), start_point, end_point, travel_date, departure_time, arrival_time, price, JSON.stringify(seat_layout)]);
         // console.log("MODEL IMAGES:", bus_images);
         // console.log("MODEL TYPE:", typeof bus_images);
-        console.log("Seat Layout saved:", seat_layout);
+        // console.log("Seat Layout saved:", seat_layout);
         return result;
     }
 

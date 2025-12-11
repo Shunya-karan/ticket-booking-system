@@ -22,10 +22,10 @@ const Home = () => {
   const loadPopular = async () => {
     try {
       const res = await GetpopularRoutes();
-      console.log("POPULAR ROUTES RESPONSE:", res.data);
+      // console.log("POPULAR ROUTES RESPONSE:", res.data);
       setPopularRoutes(res.data.routes);
     } catch (err) {
-      console.log("ERROR LOADING POPULAR ROUTES:", err);
+      // console.log("ERROR LOADING POPULAR ROUTES:", err);
     }
   };
 

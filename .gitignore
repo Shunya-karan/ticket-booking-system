@@ -60,6 +60,7 @@ ehthumbs.db
 /frontend/.turbo/
 /frontend/dist/
 
+
 # Backend
 /backend/node_modules/
 /backend/.env
