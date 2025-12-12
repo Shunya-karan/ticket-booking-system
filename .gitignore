@@ -60,7 +60,7 @@ ehthumbs.db
 /frontend/.turbo/
 /frontend/dist/
 
-
+/ticketdb.sql
 # Backend
 /backend/node_modules/
 /backend/.env
