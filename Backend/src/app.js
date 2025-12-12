@@ -11,7 +11,17 @@ import adminroutes from "./routes/AdminRoute.js"
 
 const app = express();
 
-app.use(cors());
+const allowedOrigins = [
+  "https://busbuddy-hl0b.onrender.com",  // Frontend domain
+  "http://localhost:5173"                // Local development
+];
+
+app.use(
+  cors({
+    origin: allowedOrigins,
+    credentials: true,
+  })
+);
 app.use(express.json());
 
 // Fix ES module dirname
