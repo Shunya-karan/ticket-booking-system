@@ -2,7 +2,7 @@ import axios from "axios";
 import { getTokenFromLS } from "../utils/authtokens";
 
 const api = axios.create({
-  baseURL: "https://busbuddy-backend-687e.onrender.com/api",
+  baseURL: import.meta.env.VITE_API_URL,
   withCredentials: true,
 });
 
