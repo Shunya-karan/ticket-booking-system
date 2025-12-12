@@ -10,7 +10,7 @@ const app = express();
 
 // Allowed frontend domains
 const allowedOrigins = [
-  "https://busbuddy-hl0b.onrender.com", 
+  "https://busbuddy-frontend-hl0b.onrender.com", 
   "http://localhost:5173"
 ];
 
