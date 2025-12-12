@@ -9,7 +9,7 @@ const BusCard = ({ bus }) => {
             <img
               src={bus.bus_images[0]}
               alt={bus.bus_name}
-              className="w-full h-full object-cover transform hover:scale-110 transition-transform duration-500"
+              className="w-full h-full object-contain transform hover:scale-110 transition-transform duration-500"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
             
