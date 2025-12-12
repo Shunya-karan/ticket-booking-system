@@ -417,7 +417,7 @@ export default function UpdateBus() {
                                             <img
                                                 src={img}
                                                 alt="preview"
-                                                className="w-full md:w-48 h-28 object-cover rounded mb-3 border"
+                                                className="w-full md:w-48 h-28 object-contain rounded mb-3 border"
                                                 onError={(e) => (e.target.style.display = 'none')}
                                             />
                                         )}

@@ -117,7 +117,7 @@ const BusDetails = () => {
                   <img
                     src={img}
                     alt={`${bus.bus_name} ${index + 1}`}
-                    className="w-80 h-56 object-cover rounded-2xl shadow-lg border border-orange-100"
+                    className="w-80 h-56 object-contain rounded-2xl shadow-lg border border-orange-100"
                   />
                 </div>
               ))}

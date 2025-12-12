@@ -110,7 +110,7 @@ const SearchBus = () => {
                             key={index}
                             src={img}
                             alt={`${bus.bus_name} ${index + 1}`}
-                            className="w-full h-full object-cover snap-center flex-shrink-0"
+                            className="w-full h-full object-contain snap-center flex-shrink-0"
                           />
                         ))
                       ) : (

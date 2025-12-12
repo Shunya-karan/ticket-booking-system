@@ -105,7 +105,7 @@ export default function AllBuses() {
                 <img
                   src={bus.bus_images[0]}
                   alt={`Image of ${bus.bus_name}`}
-                  className="w-full h-48 object-cover transition-transform duration-500 hover:scale-105"
+                  className="w-full h-48 object-contain transition-transform duration-500 hover:scale-105"
                   onError={(e) => { e.target.onerror = null; e.target.src = "https://via.placeholder.com/300x200?text=Bus+Image" }} // Fallback image
                 />
               </div>
