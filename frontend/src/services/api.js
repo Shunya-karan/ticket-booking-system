@@ -2,8 +2,10 @@ import axios from "axios";
 import { getTokenFromLS } from "../utils/authtokens";
 
 const api = axios.create({
-  baseURL: "http://localhost:3000/api",
+  baseURL: "https://busbuddy-pgec.onrender.com/api",
+  withCredentials: true,
 });
+
 
 // 🔥 Attach token automatically to every request
 api.interceptors.request.use((config) => {
