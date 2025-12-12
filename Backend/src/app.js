@@ -10,7 +10,7 @@ const app = express();
 
 // Allowed frontend domains
 const allowedOrigins = [
-  "https://busbuddy-frontend-hl0b.onrender.com", 
+  "https://busbuddy-frontend.onrender.com", 
   "http://localhost:5173"
 ];
 
@@ -25,10 +25,17 @@ app.use(express.json());
 
 // Extra CORS headers
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "https://busbuddy-hl0b.onrender.com");
+  const origin = req.headers.origin;
+  if (allowedOrigins.includes(origin)) {
+    res.header("Access-Control-Allow-Origin", origin);
+  }
+
   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
   res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
   res.header("Access-Control-Allow-Credentials", "true");
+  
+  if (req.method === "OPTIONS") return res.sendStatus(200);
+  
   next();
 });
 
