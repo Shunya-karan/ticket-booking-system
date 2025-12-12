@@ -11,26 +11,8 @@ import adminroutes from "./routes/AdminRoute.js"
 
 const app = express();
 
-const allowedOrigins = [
-  "https://busbuddy-hl0b.onrender.com",  // Frontend domain
-  "http://localhost:5173"                // Local development
-];
-
-app.use(
-  cors({
-    origin: allowedOrigins,
-    credentials: true,
-  })
-);
+app.use(cors());
 app.use(express.json());
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "https://busbuddy-hl0b.onrender.com");
-  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  res.header("Access-Control-Allow-Credentials", "true");
-  next();
-});
-
 
 // Fix ES module dirname
 const __filename = fileURLToPath(import.meta.url);
