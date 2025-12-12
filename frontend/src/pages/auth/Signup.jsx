@@ -2,7 +2,7 @@ import { useState } from "react";
 import AuthInput from "../../components/AuthInput.jsx";
 import { PostSignUp } from "../../services/authservice.js";
 import toast from "react-hot-toast";
-import { useNavigate, Navigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import AuthNavbar from "../../components/AuthNavbar.jsx";
 import IMAGES from "../../assets/image.js";
 import {
@@ -270,12 +270,8 @@ const Signup = () => {
                 <div className="mt-8 text-center">
                   <p className="text-gray-600">
                     Already have an account?{" "}
-                    <a
-                      href="/login"
-                      className="text-orange-600 font-bold hover:text-orange-700 hover:underline"
-                    >
-                      Sign In
-                    </a>
+                    <Link to="/signin"className="text-orange-600 font-bold hover:text-orange-700 hover:underline">Sign In</Link>
+                      
                   </p>
                 </div>
 

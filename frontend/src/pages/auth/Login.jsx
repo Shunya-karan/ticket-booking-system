@@ -3,7 +3,7 @@ import { PostlogIn } from "../../services/authservice.js";
 import AuthInput from "../../components/AuthInput.jsx";
 import api from "../../services/api";
 import toast from "react-hot-toast";
-import { useNavigate, Navigate } from "react-router-dom";
+import {Link, useNavigate, Navigate } from "react-router-dom";
 import AuthNavbar from "../../components/AuthNavbar.jsx";
 import IMAGES from "../../assets/image.js";
 import {
@@ -18,7 +18,6 @@ import {
   EyeOff
 } from "lucide-react";
 import { useAuth } from "../../context/AuthContext";
-
 
 const Login = () => {
 
@@ -273,12 +272,11 @@ const Login = () => {
                 <div className="mt-8 text-center">
                   <p className="text-gray-600">
                     Don't have an account?{" "}
-                    <a
-                      href="/signup"
+                     <Link to="/signup"  href="/signup"
                       className="text-orange-600 font-bold hover:text-orange-700 hover:underline"
                     >
                       Register now
-                    </a>
+                    </Link>
                   </p>
                 </div>
 
