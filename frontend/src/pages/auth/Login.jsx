@@ -3,7 +3,7 @@ import { PostlogIn } from "../../services/authservice.js";
 import AuthInput from "../../components/AuthInput.jsx";
 import api from "../../services/api";
 import toast from "react-hot-toast";
-import {Link, useNavigate, Navigate } from "react-router-dom";
+import { Link, useNavigate, Navigate } from "react-router-dom";
 import AuthNavbar from "../../components/AuthNavbar.jsx";
 import IMAGES from "../../assets/image.js";
 import {
@@ -69,7 +69,7 @@ const Login = () => {
         setTimeout(() => navigate("/"), 1200);
       }
 
-      
+
     } catch (err) {
       toast.error(err.response?.data?.error || "Login failed");
       setIsLoading(false)
@@ -272,7 +272,7 @@ const Login = () => {
                 <div className="mt-8 text-center">
                   <p className="text-gray-600">
                     Don't have an account?{" "}
-                     <Link to="/signup"  href="/signup"
+                    <Link to="/signup" href="/signup"
                       className="text-orange-600 font-bold hover:text-orange-700 hover:underline"
                     >
                       Register now

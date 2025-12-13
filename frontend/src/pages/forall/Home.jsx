@@ -6,7 +6,7 @@ import Footer from "../../components/Footer";
 import IMAGES from "../../assets/image";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import { useState ,useEffect} from "react";
+import { useState, useEffect } from "react";
 import api from "../../services/api";
 import { GetpopularRoutes } from "../../services/busService";
 
@@ -19,21 +19,21 @@ const Home = () => {
   const [date, setDate] = useState();
 
   useEffect(() => {
-  const loadPopular = async () => {
-    try {
-      const res = await GetpopularRoutes();
-      // console.log("POPULAR ROUTES RESPONSE:", res.data);
-      setPopularRoutes(res.data.routes);
-    } catch (err) {
-      // console.log("ERROR LOADING POPULAR ROUTES:", err);
-    }
-  };
+    const loadPopular = async () => {
+      try {
+        const res = await GetpopularRoutes();
+        // console.log("POPULAR ROUTES RESPONSE:", res.data);
+        setPopularRoutes(res.data.routes);
+      } catch (err) {
+        // console.log("ERROR LOADING POPULAR ROUTES:", err);
+      }
+    };
 
-  loadPopular();
-}, []);
+    loadPopular();
+  }, []);
 
   const handleSearch = () => {
-    navigate(`/search-bus?from=${from}&to=${to}&date=${date||""}`);
+    navigate(`/search-bus?from=${from}&to=${to}&date=${date || ""}`);
 
 
 
@@ -43,7 +43,7 @@ const Home = () => {
       {/* NAVBARS */}
       {!isLoggedIn && <AuthNavbar />}
       {isLoggedIn && user?.role === "user" && <UserNavbar />}
-      
+
 
       {/* HERO SECTION WITH VIDEO */}
       <section className="relative h-[60vh] sm:h-[70vh] lg:h-[85vh] overflow-hidden">
@@ -190,7 +190,7 @@ const Home = () => {
       </section>
 
       {/* FOOTER */}
-      {isLoggedIn && <Footer/>}
+      {isLoggedIn && <Footer />}
     </>
   );
 };

@@ -23,7 +23,7 @@ export const createUser = async (req, res, next) => {
         const hashpass = await bcrypt.hash(password, 10);
 
         const result = await USER.signUp({ name, email, password: hashpass });
-        const newUserId = result.insertId;   
+        const newUserId = result.insertId;
 
         return res.status(201).json({
             message: "User registered successfully",
@@ -44,7 +44,7 @@ export const createUser = async (req, res, next) => {
 export const SignInUser = async (req, res, next) => {
     try {
         const { email, password } = req.body;
-        
+
 
         if (!email || !password) {
             return res.status(400).json({
@@ -52,35 +52,37 @@ export const SignInUser = async (req, res, next) => {
             });
         }
         const user = await USER.existingUsers(email);
-        if  (user.length === 0) {
+        if (user.length === 0) {
             return res.status(401).json({ error: "Invalid email or password" });
         }
-        const dbUser=user[0];
-        const isPasswordValid = await bcrypt.compare(password,dbUser.password);
-        if(!isPasswordValid){
+        const dbUser = user[0];
+        const isPasswordValid = await bcrypt.compare(password, dbUser.password);
+        if (!isPasswordValid) {
             return res.status(401).json({ error: "Invalid email or password" });
         }
-        const token= generateToken({id:dbUser.id,email:dbUser.email,role:dbUser.role});
+        const token = generateToken({ id: dbUser.id, email: dbUser.email, role: dbUser.role });
 
-        return res.json({message:"Login success",token,
-        user:{id: dbUser.id,
-        name: dbUser.name,
-        email: dbUser.email,
-        role:dbUser.role
-        
-    }
-    
-    });
+        return res.json({
+            message: "Login success", token,
+            user: {
+                id: dbUser.id,
+                name: dbUser.name,
+                email: dbUser.email,
+                role: dbUser.role
+
+            }
+
+        });
     } catch (err) {
-        return res.status(500).json({ error: err.message})
+        return res.status(500).json({ error: err.message })
     }
 }
 
 export const getUser = async (req, res) => {
-  try {
-    const user = await USER.getUserbyId(req.params.id);
-    return res.status(200).json({ user });
-  } catch (err) {
-    return res.status(500).json({ error: err.message });
-  }
+    try {
+        const user = await USER.getUserbyId(req.params.id);
+        return res.status(200).json({ user });
+    } catch (err) {
+        return res.status(500).json({ error: err.message });
+    }
 };

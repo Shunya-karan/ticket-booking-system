@@ -35,51 +35,7 @@ export default class BUS {
     }
 
     static async updateBusDetails(bus_id, data) {
-    let {
-        bus_name,
-        bus_number,
-        bus_type,
-        bus_images,
-        start_point,
-        end_point,
-        travel_date,
-        departure_time,
-        arrival_time,
-        price
-    } = data;
-
-    // Convert images to JSON
-    if (Array.isArray(bus_images)) {
-        bus_images = JSON.stringify(bus_images);
-    }
-
-    // Get old bus type
-    const [oldData] = await pool.query(
-        "SELECT bus_type FROM buses WHERE id = ?",
-        [bus_id]
-    );
-
-    const old_type = oldData[0].bus_type.toLowerCase();
-    const new_type = bus_type.toLowerCase();
-
-    let seat_layout = null;
-
-    // If type changed → generate new seat layout
-    if (old_type !== new_type) {
-        seat_layout =
-            new_type === "sleeper"
-                ? JSON.stringify(SEAT_LAYOUTS.sleeper_32)
-                : JSON.stringify(SEAT_LAYOUTS.seater_40);
-    }
-
-    // Update base fields (always)
-    await pool.query(
-        `UPDATE buses 
-        SET bus_name=?, bus_number=?, bus_type=?, bus_images=?, 
-            start_point=?, end_point=?, travel_date=?, departure_time=?, 
-            arrival_time=?, price=?
-        WHERE id=?`,
-        [
+        let {
             bus_name,
             bus_number,
             bus_type,
@@ -89,21 +45,65 @@ export default class BUS {
             travel_date,
             departure_time,
             arrival_time,
-            price,
-            bus_id
-        ]
-    );
+            price
+        } = data;
 
-    // Update seat_layout only if changed
-    if (seat_layout) {
-        await pool.query(
-            `UPDATE buses SET seat_layout=? WHERE id=?`,
-            [seat_layout, bus_id]
+        // Convert images to JSON
+        if (Array.isArray(bus_images)) {
+            bus_images = JSON.stringify(bus_images);
+        }
+
+        // Get old bus type
+        const [oldData] = await pool.query(
+            "SELECT bus_type FROM buses WHERE id = ?",
+            [bus_id]
         );
-    }
 
-    return { affectedRows: 1 };
-}
+        const old_type = oldData[0].bus_type.toLowerCase();
+        const new_type = bus_type.toLowerCase();
+
+        let seat_layout = null;
+
+        // If type changed → generate new seat layout
+        if (old_type !== new_type) {
+            seat_layout =
+                new_type === "sleeper"
+                    ? JSON.stringify(SEAT_LAYOUTS.sleeper_32)
+                    : JSON.stringify(SEAT_LAYOUTS.seater_40);
+        }
+
+        // Update base fields (always)
+        await pool.query(
+            `UPDATE buses 
+        SET bus_name=?, bus_number=?, bus_type=?, bus_images=?, 
+            start_point=?, end_point=?, travel_date=?, departure_time=?, 
+            arrival_time=?, price=?
+        WHERE id=?`,
+            [
+                bus_name,
+                bus_number,
+                bus_type,
+                bus_images,
+                start_point,
+                end_point,
+                travel_date,
+                departure_time,
+                arrival_time,
+                price,
+                bus_id
+            ]
+        );
+
+        // Update seat_layout only if changed
+        if (seat_layout) {
+            await pool.query(
+                `UPDATE buses SET seat_layout=? WHERE id=?`,
+                [seat_layout, bus_id]
+            );
+        }
+
+        return { affectedRows: 1 };
+    }
 
 
     static async deleteBus(bus_id) {
@@ -170,15 +170,15 @@ export default class BUS {
     }
 
     static async getUpcomingBuses() {
-  const [rows] = await pool.query(
-    `SELECT id, bus_name, start_point, end_point, travel_date 
+        const [rows] = await pool.query(
+            `SELECT id, bus_name, start_point, end_point, travel_date 
      FROM buses
      WHERE travel_date >= CURDATE()
      ORDER BY travel_date ASC
      LIMIT 5`
-  );
-  return rows;
-}
+        );
+        return rows;
+    }
 
 }
 

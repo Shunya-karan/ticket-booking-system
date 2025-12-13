@@ -20,18 +20,18 @@ export default class USER {
     const [rows] = await pool.query(`SELECT id, name, email,role FROM users WHERE id = ?`, [id]);
     return rows.length > 0 ? rows[0] : null;
   }
-  
+
   static async countUsers() {
-  const [rows] = await pool.query("SELECT COUNT(*) AS total FROM users");
-  return rows[0].total;
-}
-static async updateUser(userId, data) {
+    const [rows] = await pool.query("SELECT COUNT(*) AS total FROM users");
+    return rows[0].total;
+  }
+  static async updateUser(userId, data) {
     const fields = [];
     const values = [];
 
     for (const key in data) {
-        fields.push(`${key} = ?`);
-        values.push(data[key]);
+      fields.push(`${key} = ?`);
+      values.push(data[key]);
     }
 
     values.push(userId);
@@ -44,6 +44,6 @@ static async updateUser(userId, data) {
 
     const [result] = await pool.query(query, values);
     return result;
-}
+  }
 
 }

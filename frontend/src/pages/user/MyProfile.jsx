@@ -131,7 +131,7 @@ const Profile = () => {
               </svg>
               Account Settings
             </h3>
-            
+
             <div className="grid md:grid-cols-2 gap-4">
               <button
                 onClick={() => toast.success("Feature coming soon")}
@@ -193,7 +193,7 @@ const Profile = () => {
                           </svg>
                           {b.bus_name}
                         </h4>
-                        
+
                         <div className="flex items-center gap-4 flex-wrap text-sm text-gray-600 mb-2">
                           <div className="flex items-center gap-1">
                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -205,7 +205,7 @@ const Profile = () => {
                               year: "numeric"
                             })}
                           </div>
-                          
+
                           <div className="flex items-center gap-1">
                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6z" />
@@ -213,11 +213,10 @@ const Profile = () => {
                             Seats: {b.seats.join(", ")}
                           </div>
                         </div>
-                        
+
                         <div className="flex items-center gap-2">
-                          <span className={`px-3 py-1 rounded-full text-xs font-bold ${
-                            b.status === "CONFIRMED" ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"
-                          }`}>
+                          <span className={`px-3 py-1 rounded-full text-xs font-bold ${b.status === "CONFIRMED" ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"
+                            }`}>
                             {b.status}
                           </span>
                         </div>

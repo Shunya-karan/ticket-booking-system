@@ -1,18 +1,18 @@
-import {Router} from 'express';
+import { Router } from 'express';
 import authMiddleware from "../middleware/authMiddleware.js";
-import { bookseats,cancelSelectedSeats,getMyBookings } from '../controllers/bookingController.js';
+import { bookseats, cancelSelectedSeats, getMyBookings } from '../controllers/bookingController.js';
 
 
 
-const router= Router();
+const router = Router();
 
-router.post("/book",authMiddleware,bookseats)
+router.post("/book", authMiddleware, bookseats)
 
-router.patch("/cancel-seats/:booking_id",authMiddleware,cancelSelectedSeats
+router.patch("/cancel-seats/:booking_id", authMiddleware, cancelSelectedSeats
 );
 
 
-router.get('/my-bookings',authMiddleware,getMyBookings)
+router.get('/my-bookings', authMiddleware, getMyBookings)
 
 
 

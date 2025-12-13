@@ -1,9 +1,9 @@
 import { Router } from "express";
 
- import { getSearchBuses,getAllActiveBus ,getBusDetails,getPopularRoutes} from "../controllers/busController.js";
- 
+import { getSearchBuses, getAllActiveBus, getBusDetails, getPopularRoutes } from "../controllers/busController.js";
 
-const router=Router();
+
+const router = Router();
 
 router.get("/search", getSearchBuses);
 

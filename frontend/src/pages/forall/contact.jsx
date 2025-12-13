@@ -255,9 +255,9 @@ const Contact = () => {
         </section>
 
       </div>
- {isLoggedIn 
- ? <Footer /> : 
- null}
+      {isLoggedIn
+        ? <Footer /> :
+        null}
     </>
   );
 };

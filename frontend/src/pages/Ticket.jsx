@@ -26,17 +26,17 @@ const Ticket = () => {
   return (
     <div className="max-w-3xl mx-auto p-10 bg-white shadow-xl rounded-xl border-2 border-orange-200 mt-10">
       {/* Header */}
-      
-<div className="text-center mb-8">
-  <img 
-    src={IMAGES.logo}
-    alt="Company Logo" 
-    className="w-28 mx-auto mb-3"
-  />
 
-  <h1 className="text-4xl font-bold text-orange-600">Bus Ticket</h1>
-  <p className="text-gray-600 font-medium mt-1">Booking ID: #{booking.id}</p>
-</div>
+      <div className="text-center mb-8">
+        <img
+          src={IMAGES.logo}
+          alt="Company Logo"
+          className="w-28 mx-auto mb-3"
+        />
+
+        <h1 className="text-4xl font-bold text-orange-600">Bus Ticket</h1>
+        <p className="text-gray-600 font-medium mt-1">Booking ID: #{booking.id}</p>
+      </div>
 
 
       {/* Bus Info */}

@@ -137,20 +137,20 @@ export default class BOOKING {
 
 
     static async getTotalRevenue() {
-  const [rows] = await pool.query(
-    `SELECT SUM(total_amount) AS revenue FROM bookings WHERE status='CONFIRMED'`
-  );
-  return rows[0].revenue || 0;
-}
+        const [rows] = await pool.query(
+            `SELECT SUM(total_amount) AS revenue FROM bookings WHERE status='CONFIRMED'`
+        );
+        return rows[0].revenue || 0;
+    }
 
-static async getTodayRevenue() {
-  const [rows] = await pool.query(
-    `SELECT SUM(total_amount) AS revenue 
+    static async getTodayRevenue() {
+        const [rows] = await pool.query(
+            `SELECT SUM(total_amount) AS revenue 
      FROM bookings 
      WHERE DATE(booked_at) = CURDATE() AND status='CONFIRMED'`
-  );
-  return rows[0].revenue || 0;
-}
+        );
+        return rows[0].revenue || 0;
+    }
 
 }
 

@@ -217,8 +217,8 @@ export default function AdminDashboard() {
                   <td className="px-4 py-4 text-sm font-bold text-gray-800">₹{b.total_amount}</td>
                   <td className="px-4 py-4">
                     <span className={`px-3 py-1 rounded-full text-xs font-bold ${b.status === "CONFIRMED"
-                        ? "bg-green-100 text-green-700"
-                        : "bg-red-100 text-red-700"
+                      ? "bg-green-100 text-green-700"
+                      : "bg-red-100 text-red-700"
                       }`}>
                       {b.status}
                     </span>

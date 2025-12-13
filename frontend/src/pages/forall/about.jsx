@@ -11,7 +11,7 @@ const About = () => {
       <div>
         {!isLoggedIn && <AuthNavbar />}
         {isLoggedIn && user?.role === "user" && <UserNavbar />}
-        
+
       </div>
 
       <div className="min-h-screen bg-gray-50">
@@ -38,8 +38,8 @@ const About = () => {
             </div>
             <h2 className="text-3xl font-bold text-gray-800 text-center mb-6">Who We Are</h2>
             <p className="text-gray-600 text-lg text-center max-w-3xl mx-auto leading-relaxed">
-              We are a modern online bus ticket booking platform created to make your travel 
-              smarter, smoother, and more enjoyable. Our goal is to simplify the way people 
+              We are a modern online bus ticket booking platform created to make your travel
+              smarter, smoother, and more enjoyable. Our goal is to simplify the way people
               discover and book buses across India, connecting cities and bringing people together.
             </p>
           </div>
@@ -117,9 +117,9 @@ const About = () => {
         {/* FEATURES GRID */}
         <section className="max-w-6xl mx-auto px-6 py-16">
           <h2 className="text-3xl font-bold text-gray-800 text-center mb-12">What We Offer</h2>
-          
+
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            
+
             {/* Feature 1 */}
             <div className="bg-white p-6 rounded-xl shadow-md border border-gray-200 text-center hover:shadow-lg transition">
               <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mx-auto mb-4">
@@ -185,8 +185,8 @@ const About = () => {
           </div>
         </section>
       </div>
-{isLoggedIn? <Footer />:null
-}
+      {isLoggedIn ? <Footer /> : null
+      }
     </>
   );
 };

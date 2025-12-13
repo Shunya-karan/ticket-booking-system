@@ -1,18 +1,18 @@
 import { Router } from "express";
 import authMiddleware from "../middleware/authMiddleware.js";
 import { adminMiddleware } from "../middleware/adminMiddleware.js";
-import { addBus, deletingBus, getActiveBus, getAdminProfile, getAdminStats,getAllBookingofBus, getAllBuses, getRecentBookings, getRevenueOverview, getSingleBus, getUpcomingBuses, updateAdminProfile, updateBus } from "../controllers/adminController.js";
+import { addBus, deletingBus, getActiveBus, getAdminProfile, getAdminStats, getAllBookingofBus, getAllBuses, getRecentBookings, getRevenueOverview, getSingleBus, getUpcomingBuses, updateAdminProfile, updateBus } from "../controllers/adminController.js";
 
 
-const router= Router();
+const router = Router();
 
-router.get("/bus/:bus_id",authMiddleware,adminMiddleware,getAllBookingofBus)
+router.get("/bus/:bus_id", authMiddleware, adminMiddleware, getAllBookingofBus)
 
-router.get("/stats",authMiddleware,adminMiddleware,getAdminStats);
+router.get("/stats", authMiddleware, adminMiddleware, getAdminStats);
 
-router.post("/add_bus",authMiddleware,adminMiddleware,addBus);
+router.post("/add_bus", authMiddleware, adminMiddleware, addBus);
 
-router.get("/all",authMiddleware,adminMiddleware,getAllBuses);
+router.get("/all", authMiddleware, adminMiddleware, getAllBuses);
 
 router.get("/active-buses", getActiveBus);
 

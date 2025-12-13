@@ -16,18 +16,18 @@ export const AuthProvider = ({ children }) => {
       setUser(JSON.parse(savedUser));
     }
 
-    setLoading(false); 
+    setLoading(false);
   }, []);
 
-const login = (tokenValue, userData) => {
-  // Store in state
-  setToken(tokenValue);
-  setUser(userData);
+  const login = (tokenValue, userData) => {
+    // Store in state
+    setToken(tokenValue);
+    setUser(userData);
 
-  // Store in localStorage
-  storeTokenInLS(tokenValue);
-  localStorage.setItem("authUser", JSON.stringify(userData));
-};
+    // Store in localStorage
+    storeTokenInLS(tokenValue);
+    localStorage.setItem("authUser", JSON.stringify(userData));
+  };
 
 
   const logout = () => {

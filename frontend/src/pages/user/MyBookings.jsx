@@ -116,11 +116,10 @@ const MyBookings = () => {
                     </div>
                     <div className="flex items-center gap-4">
                       <span
-                        className={`px-5 py-2 rounded-full text-sm font-bold shadow-lg ${
-                          booking.status === "CONFIRMED"
+                        className={`px-5 py-2 rounded-full text-sm font-bold shadow-lg ${booking.status === "CONFIRMED"
                             ? "bg-green-500 text-white"
                             : "bg-gradient-to-r from-red-600 to-gray-500 text-white"
-                        }`}
+                          }`}
                       >
                         {booking.status}
                       </span>
@@ -242,15 +241,15 @@ const MyBookings = () => {
                   {/* Action Buttons */}
                   <div className="flex flex-col sm:flex-row gap-4">
                     <a href={`/ticket/${booking.id}`} target="_blank" rel="noopener noreferrer">
-                    <button
-                      className="flex-1 w-64 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 flex items-center justify-center gap-2"
-                    >
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
-                      </svg>
-                      <span>Print Ticket</span>
-                    </button>
-</a>
+                      <button
+                        className="flex-1 w-64 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 flex items-center justify-center gap-2"
+                      >
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+                        </svg>
+                        <span>Print Ticket</span>
+                      </button>
+                    </a>
                     <button
                       onClick={() => {
                         setSelectedBooking(booking);
@@ -278,7 +277,7 @@ const MyBookings = () => {
       {showSeatModal && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex justify-center items-center z-50 p-4">
           <div className="bg-white w-full max-w-md rounded-2xl shadow-2xl overflow-hidden">
-            
+
             {/* Modal Header */}
             <div className="bg-gradient-to-r from-orange-500 to-red-500 px-6 py-5">
               <div className="flex items-center justify-between">
@@ -310,16 +309,15 @@ const MyBookings = () => {
                 <p className="text-sm text-gray-600 mb-4">
                   Booking ID: <span className="font-bold text-gray-800">#{selectedBooking?.id}</span>
                 </p>
-                
+
                 <div className="space-y-2 max-h-60 overflow-y-auto">
                   {selectedBooking?.seats.map((seat) => (
                     <label
                       key={seat}
-                      className={`flex items-center gap-3 p-3 rounded-xl border-2 cursor-pointer transition-all ${
-                        selectedSeats.includes(seat)
+                      className={`flex items-center gap-3 p-3 rounded-xl border-2 cursor-pointer transition-all ${selectedSeats.includes(seat)
                           ? "bg-red-50 border-red-500"
                           : "bg-gray-50 border-gray-200 hover:border-gray-300"
-                      }`}
+                        }`}
                     >
                       <input
                         type="checkbox"
@@ -380,11 +378,10 @@ const MyBookings = () => {
                 <button
                   onClick={cancelSelectedSeatsAPI}
                   disabled={cancelling || selectedSeats.length === 0}
-                  className={`flex-1 px-4 py-3 bg-red-600 text-white font-bold rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 ${
-                    cancelling || selectedSeats.length === 0
+                  className={`flex-1 px-4 py-3 bg-red-600 text-white font-bold rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 ${cancelling || selectedSeats.length === 0
                       ? "opacity-50 cursor-not-allowed"
                       : "hover:bg-red-700 hover:shadow-xl"
-                  }`}
+                    }`}
                 >
                   {cancelling ? (
                     <>

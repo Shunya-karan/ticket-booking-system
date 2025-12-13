@@ -1,34 +1,34 @@
 import api from "./api";
 
-export const getAdminstats=()=>
+export const getAdminstats = () =>
     api.get("/admin/stats");
 
-export const recentBookings=()=>
+export const recentBookings = () =>
     api.get("/admin/recent-bookings");
 
-export const popularRoutes=()=>
+export const popularRoutes = () =>
     api.get("/bus/popular-routes")
 
-export const revenues=()=>
+export const revenues = () =>
     api.get("/admin/revenue")
 
-export const getUpcomingBuses=()=>
+export const getUpcomingBuses = () =>
     api.get("/admin/upcoming-buses")
 
-export const getActivebuses=()=>
+export const getActivebuses = () =>
     api.get("/admin/active-buses")
 
-export const getAllBuses=()=>
+export const getAllBuses = () =>
     api.get("/admin/all")
 
 
-export const deleteBus=(busid)=>
+export const deleteBus = (busid) =>
     api.delete(`/admin/delete/${busid}`)
 
-export const BusBookingss=(busid)=>
+export const BusBookingss = (busid) =>
     api.get(`/admin/bus/${busid}`);
 
-export const addBus=(payload)=>
+export const addBus = (payload) =>
     api.post("/admin/add_bus", payload);
 
 export const getBusById = (id) => api.get(`/admin/bus-detail/${id}`);

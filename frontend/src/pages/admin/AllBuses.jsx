@@ -44,32 +44,32 @@ export default function AllBuses() {
   const handleUpdate = (bus_id) => {
     navigate(`/admin/edit-bus/${bus_id}`);
   };
-  
-  const handleBookings = async(bus_id)=>{
+
+  const handleBookings = async (bus_id) => {
     navigate(`/admin/bus-bookings/${bus_id}`)
   }
-  
+
   // Custom addition: Function to navigate to the Add Bus page
   const handleAddBus = () => {
-      navigate('/admin/add-bus'); // Assuming a route '/add-bus' exists
+    navigate('/admin/add-bus'); // Assuming a route '/add-bus' exists
   };
 
 
   if (loading) {
     return (
       <div className="p-5 text-center text-lg font-medium text-gray-600">
-          Loading  buses...
+        Loading  buses...
       </div>
     );
   }
 
   return (
     <div className="p-4 sm:p-6 lg:p-8 min-h-screen bg-gradient-to-br from-white to-orange-50"> {/* Subtle gradient background */}
-      
+
       {/* Header with CTA Button */}
       <div className="flex justify-between items-center mb-6 sm:mb-8">
         <h2 className="text-2xl sm:text-3xl font-bold text-orange-600 flex items-center">
-            <BusFront className="w-6 h-6 sm:w-8 sm:h-8 mr-2" />All Buses
+          <BusFront className="w-6 h-6 sm:w-8 sm:h-8 mr-2" />All Buses
         </h2>
         <button
           className="bg-orange-600 hover:bg-orange-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition duration-300 ease-in-out flex items-center text-sm sm:text-base"
@@ -96,8 +96,8 @@ export default function AllBuses() {
         /* Bus Grid - Responsive Layout */
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {buses.map((bus) => (
-            <div 
-              key={bus.id} 
+            <div
+              key={bus.id}
               className="border border-orange-200 p-4 rounded-xl shadow-lg hover:shadow-xl transition duration-300 bg-white flex flex-col"
             >
               {/* Bus Image */}
@@ -112,17 +112,17 @@ export default function AllBuses() {
 
               {/* Bus Details */}
               <div className="flex-grow">
-                  <h3 className="font-extrabold text-xl mb-1 text-orange-700">{bus.bus_name}</h3>
-                  <p className="text-sm text-gray-600 mb-1">
-                      <span className="font-semibold text-gray-700">Number:</span> {bus.bus_number}
-                  </p>
-                  <p className="text-sm text-gray-600 mb-1">
-                      <span className="font-semibold text-gray-700">Type:</span> {bus.bus_type}
-                  </p>
-                  <p className="text-sm text-gray-800 font-medium mt-2">
-                      <span className="text-orange-600">Route:</span> {bus.start_point} <span className="text-gray-400">→</span> {bus.end_point}
-                  </p>
-                  <p className="text-sm text-gray-800 font-medium mt-2"><span className="text-green-600">Date: </span>{ new Date(bus.travel_date).toLocaleDateString("en-IN")}</p>
+                <h3 className="font-extrabold text-xl mb-1 text-orange-700">{bus.bus_name}</h3>
+                <p className="text-sm text-gray-600 mb-1">
+                  <span className="font-semibold text-gray-700">Number:</span> {bus.bus_number}
+                </p>
+                <p className="text-sm text-gray-600 mb-1">
+                  <span className="font-semibold text-gray-700">Type:</span> {bus.bus_type}
+                </p>
+                <p className="text-sm text-gray-800 font-medium mt-2">
+                  <span className="text-orange-600">Route:</span> {bus.start_point} <span className="text-gray-400">→</span> {bus.end_point}
+                </p>
+                <p className="text-sm text-gray-800 font-medium mt-2"><span className="text-green-600">Date: </span>{new Date(bus.travel_date).toLocaleDateString("en-IN")}</p>
               </div>
 
 
@@ -142,15 +142,16 @@ export default function AllBuses() {
                   <Trash2 className="w-4 h-4 mr-1" /> Delete
                 </button>
               </div>
-            <div className=" flex items-center justify-between"> 
-              <button className="my-4 py-2 w-48 bg-gradient-to-r from-green-500 to-green-800 hover:from-green-800 hover:to-green-900 rounded-lg font-medium flex-1 items-center justify-center text-sm shadow-md"
-              onClick={()=>{
-                handleBookings(bus.id)}
-                }>See Bookings</button>
+              <div className=" flex items-center justify-between">
+                <button className="my-4 py-2 w-48 bg-gradient-to-r from-green-500 to-green-800 hover:from-green-800 hover:to-green-900 rounded-lg font-medium flex-1 items-center justify-center text-sm shadow-md"
+                  onClick={() => {
+                    handleBookings(bus.id)
+                  }
+                  }>See Bookings</button>
               </div>
             </div>
           )
-        )
+          )
           }
         </div>
       )}

@@ -140,7 +140,7 @@ const UserNavbar = () => {
                             <Link to="/my-bookings" className={`${activeText("/my-bookings")} text-sm`}>
                                 My Bookings
                             </Link>
-                            
+
                             <Link to="/about" className={`${activeText("/about")} text-sm`}>
                                 About
                             </Link>

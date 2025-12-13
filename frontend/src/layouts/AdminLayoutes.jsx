@@ -6,8 +6,8 @@ export default function AdminLayout() {
     <div>
       <AdminNavbar />
       {/* <div className="pt-20 px-6"> */}
-        <Outlet />
-      </div>
+      <Outlet />
+    </div>
     // </div>
   );
 }

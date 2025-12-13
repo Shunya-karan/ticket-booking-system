@@ -88,15 +88,16 @@ export default function AdminProfile() {
 
                 <hr className="my-6" />
 
-                    <button
-                        onClick={() => toast.success("Features coming soon")}
-                        className="bg-orange-500 text-white px-6 py-3 rounded-lg hover:bg-orange-600"
-                    >
-                        Edit Profile
-                    </button>
-                </div>
-                
-        
+                <button
+                    onClick={() => toast.success("Features coming soon")}
+                    className="bg-orange-500 text-white px-6 py-3 rounded-lg hover:bg-orange-600"
+                >
+                    Edit Profile
+                </button>
+            </div>
+
+
         </div>
 
-)}
+    )
+}

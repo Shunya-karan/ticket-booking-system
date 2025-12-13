@@ -1,7 +1,7 @@
 const BusCard = ({ bus }) => {
   return (
     <div className="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
-      
+
       {/* Bus Image with Overlay */}
       <div className="relative h-56 overflow-hidden bg-gray-100">
         {bus.bus_images?.[0] ? (
@@ -12,7 +12,7 @@ const BusCard = ({ bus }) => {
               className="w-full h-full object-contain transform hover:scale-110 transition-transform duration-500"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
-            
+
             {/* Bus Type Badge */}
             <div className="absolute top-4 right-4 bg-white/95 backdrop-blur-sm px-4 py-1.5 rounded-full shadow-lg">
               <span className="text-sm font-bold text-gray-800">{bus.bus_type}</span>

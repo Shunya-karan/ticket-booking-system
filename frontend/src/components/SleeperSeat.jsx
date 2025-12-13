@@ -37,10 +37,9 @@ const SleeperSeat = ({ seatLayout, bookedSeats, selectedSeats, toggleSeat }) => 
                   className={`
                     relative p-5 rounded-xl font-bold text-lg transition-all duration-200 
                     border-2 shadow-md min-h-[80px]
-                    ${
-                      isBooked
-                        ? "bg-gray-400 border-gray-500 text-white cursor-not-allowed opacity-60"
-                        : isSelected
+                    ${isBooked
+                      ? "bg-gray-400 border-gray-500 text-white cursor-not-allowed opacity-60"
+                      : isSelected
                         ? "bg-gradient-to-br from-orange-500 to-red-500 border-orange-600 text-white scale-105 shadow-lg"
                         : "bg-white border-gray-300 text-gray-700 hover:border-orange-400 hover:shadow-lg hover:scale-105"
                     }
@@ -48,12 +47,11 @@ const SleeperSeat = ({ seatLayout, bookedSeats, selectedSeats, toggleSeat }) => 
                 >
                   {/* Sleeper Berth Icon */}
                   <div className="flex flex-col items-center gap-2">
-                    <svg 
-                      className={`w-10 h-10 ${
-                        isBooked ? "text-white" : isSelected ? "text-white" : "text-blue-600"
-                      }`} 
-                      fill="none" 
-                      stroke="currentColor" 
+                    <svg
+                      className={`w-10 h-10 ${isBooked ? "text-white" : isSelected ? "text-white" : "text-blue-600"
+                        }`}
+                      fill="none"
+                      stroke="currentColor"
                       viewBox="0 0 24 24"
                     >
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
@@ -108,10 +106,9 @@ const SleeperSeat = ({ seatLayout, bookedSeats, selectedSeats, toggleSeat }) => 
                   className={`
                     relative p-5 rounded-xl font-bold text-lg transition-all duration-200 
                     border-2 shadow-md min-h-[80px]
-                    ${
-                      isBooked
-                        ? "bg-gray-400 border-gray-500 text-white cursor-not-allowed opacity-60"
-                        : isSelected
+                    ${isBooked
+                      ? "bg-gray-400 border-gray-500 text-white cursor-not-allowed opacity-60"
+                      : isSelected
                         ? "bg-gradient-to-br from-orange-500 to-red-500 border-orange-600 text-white scale-105 shadow-lg"
                         : "bg-white border-gray-300 text-gray-700 hover:border-orange-400 hover:shadow-lg hover:scale-105"
                     }
@@ -119,12 +116,11 @@ const SleeperSeat = ({ seatLayout, bookedSeats, selectedSeats, toggleSeat }) => 
                 >
                   {/* Sleeper Berth Icon */}
                   <div className="flex flex-col items-center gap-2">
-                    <svg 
-                      className={`w-10 h-10 ${
-                        isBooked ? "text-white" : isSelected ? "text-white" : "text-purple-600"
-                      }`} 
-                      fill="none" 
-                      stroke="currentColor" 
+                    <svg
+                      className={`w-10 h-10 ${isBooked ? "text-white" : isSelected ? "text-white" : "text-purple-600"
+                        }`}
+                      fill="none"
+                      stroke="currentColor"
                       viewBox="0 0 24 24"
                     >
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />

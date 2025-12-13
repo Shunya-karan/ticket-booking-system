@@ -5,104 +5,105 @@ import BUS from "../models/busModel.js";
 
 // ADD BUS (ADMIN)
 export const addBus = async (req, res) => {
-    try {
-        const {
-            bus_name,bus_number,bus_type,bus_images, start_point,end_point,travel_date, departure_time,arrival_time,price} = req.body;
+  try {
+    const {
+      bus_name, bus_number, bus_type, bus_images, start_point, end_point, travel_date, departure_time, arrival_time, price } = req.body;
 
-        // Validation
-        if ( !bus_name ||!bus_number ||!bus_type ||
-            !bus_images ||!Array.isArray(bus_images) ||bus_images.length === 0 ||!start_point ||!end_point ||!travel_date ||!departure_time ||!arrival_time ||!price) {
-            return res.status(400).json({ message: "All fields are required, including images" });
-        }
-        // console.log("BUS IMAGES RECEIVED:", bus_images);
-        // console.log("TYPE:", typeof bus_images);
-
-        const result = await BUS.addBus({
-            bus_name,bus_number,bus_type,bus_images,start_point,end_point, travel_date,departure_time,arrival_time,price });
-
-        return res.status(201).json({
-            message: "Bus added successfully",
-            bus_id: result.insertId
-        })
-    } 
-        catch (err) {
-        return res.status(500).json({ error: err.message });
+    // Validation
+    if (!bus_name || !bus_number || !bus_type ||
+      !bus_images || !Array.isArray(bus_images) || bus_images.length === 0 || !start_point || !end_point || !travel_date || !departure_time || !arrival_time || !price) {
+      return res.status(400).json({ message: "All fields are required, including images" });
     }
+    // console.log("BUS IMAGES RECEIVED:", bus_images);
+    // console.log("TYPE:", typeof bus_images);
+
+    const result = await BUS.addBus({
+      bus_name, bus_number, bus_type, bus_images, start_point, end_point, travel_date, departure_time, arrival_time, price
+    });
+
+    return res.status(201).json({
+      message: "Bus added successfully",
+      bus_id: result.insertId
+    })
+  }
+  catch (err) {
+    return res.status(500).json({ error: err.message });
+  }
 };
 
 // GET ALL BUSES (ADMIN)
 export const getAllBuses = async (req, res) => {
-    try {
-        const buses = await BUS.getAllBus();
+  try {
+    const buses = await BUS.getAllBus();
 
     buses.forEach(bus => {
-        if (typeof bus.bus_images === "string") {
-            bus.bus_images = JSON.parse(bus.bus_images);
-        }
+      if (typeof bus.bus_images === "string") {
+        bus.bus_images = JSON.parse(bus.bus_images);
+      }
     });
 
 
-        return res.status(200).json({ message: "All buses fetched successfully", buses });
+    return res.status(200).json({ message: "All buses fetched successfully", buses });
 
-    } catch (err) {
-        return res.status(500).json({ error: err.message });
-    }
+  } catch (err) {
+    return res.status(500).json({ error: err.message });
+  }
 };
 
 // ACTIVE BUSES 
 export const getActiveBus = async (req, res) => {
-    try {
-        const buses = await BUS.getActiveBus();
+  try {
+    const buses = await BUS.getActiveBus();
 
     buses.forEach(bus => {
-    if (typeof bus.bus_images === "string") {
+      if (typeof bus.bus_images === "string") {
         bus.bus_images = JSON.parse(bus.bus_images);
-    }
+      }
     });
 
 
-        if (buses.length === 0) {
-            return res.status(400).json({ message: "No buses are active" });
-        }
-
-        return res.status(200).json({ message: "Active buses fetched", buses });
-
-    } catch (err) {
-        return res.status(500).json({ error: err.message });
+    if (buses.length === 0) {
+      return res.status(400).json({ message: "No buses are active" });
     }
+
+    return res.status(200).json({ message: "Active buses fetched", buses });
+
+  } catch (err) {
+    return res.status(500).json({ error: err.message });
+  }
 };
 // UPDATE BUS (ADMIN)
 export const updateBus = async (req, res) => {
-    try {
-        const busId = req.params.bus_id;
-        const updateResult = await BUS.updateBusDetails(busId, req.body);
+  try {
+    const busId = req.params.bus_id;
+    const updateResult = await BUS.updateBusDetails(busId, req.body);
 
-        if (updateResult.affectedRows === 0) {
-            return res.status(404).json({ message: "Bus not found", busId });
-        }
-
-        return res.status(200).json({ message: "Updated successfully", busId });
-
-    } catch (err) {
-        return res.status(500).json({ error: err.message });
+    if (updateResult.affectedRows === 0) {
+      return res.status(404).json({ message: "Bus not found", busId });
     }
+
+    return res.status(200).json({ message: "Updated successfully", busId });
+
+  } catch (err) {
+    return res.status(500).json({ error: err.message });
+  }
 };
 
 // DELETE BUS (ADMIN)
 export const deletingBus = async (req, res) => {
-    try {
-        const busId = req.params.bus_id;
-        const deleteResult = await BUS.deleteBus(busId);
+  try {
+    const busId = req.params.bus_id;
+    const deleteResult = await BUS.deleteBus(busId);
 
-        if (deleteResult.affectedRows === 0) {
-            return res.status(404).json({ message: "Bus not found", busId });
-        }
-
-        return res.status(200).json({ message: "Deleted successfully", busId });
-
-    } catch (err) {
-        return res.status(500).json({ error: err.message });
+    if (deleteResult.affectedRows === 0) {
+      return res.status(404).json({ message: "Bus not found", busId });
     }
+
+    return res.status(200).json({ message: "Deleted successfully", busId });
+
+  } catch (err) {
+    return res.status(500).json({ error: err.message });
+  }
 };
 
 
@@ -125,46 +126,46 @@ export const getAdminStats = async (req, res) => {
 };
 
 export const getAllBookingofBus = async (req, res) => {
-    try {
-        const bus_id = req.params.bus_id
+  try {
+    const bus_id = req.params.bus_id
 
-        const bus = await BUS.getBusById(bus_id);
-        if (!bus) {
-            return res.status(500).json({ message: "Bus not found" })
-        }
-
-        const bookings = await BOOKING.getAllBookingof(bus_id)
-
-        if (bookings.length === 0) {
-            return res.status(200).json({
-                message: "No bookings found"
-            });
-        }
-
-        for (let booking of bookings) {
-            const seats = await BOOKING.getBookedSeatsById(booking.id);
-            booking.seats = seats.map(s => s.seat_number);
-            // console.log(booking.seats)
-
-            const User = await USER.getUserbyId(booking.user_id);
-            booking.user = {
-                id: User.id,
-                name: User.name,
-                email: User.email
-            };
-
-        }
-        return res.status(200).json({
-            message: "Bookings fetched successfully",
-            bus_id,
-            bus_name: bus.bus_name,
-            bookings
-        });
-
-
-    } catch (err) {
-        return res.status(500).json({ error: err.message })
+    const bus = await BUS.getBusById(bus_id);
+    if (!bus) {
+      return res.status(500).json({ message: "Bus not found" })
     }
+
+    const bookings = await BOOKING.getAllBookingof(bus_id)
+
+    if (bookings.length === 0) {
+      return res.status(200).json({
+        message: "No bookings found"
+      });
+    }
+
+    for (let booking of bookings) {
+      const seats = await BOOKING.getBookedSeatsById(booking.id);
+      booking.seats = seats.map(s => s.seat_number);
+      // console.log(booking.seats)
+
+      const User = await USER.getUserbyId(booking.user_id);
+      booking.user = {
+        id: User.id,
+        name: User.name,
+        email: User.email
+      };
+
+    }
+    return res.status(200).json({
+      message: "Bookings fetched successfully",
+      bus_id,
+      bus_name: bus.bus_name,
+      bookings
+    });
+
+
+  } catch (err) {
+    return res.status(500).json({ error: err.message })
+  }
 }
 
 export const getRecentBookings = async (req, res) => {
@@ -232,7 +233,7 @@ export const getAdminProfile = async (req, res) => {
       return res.status(404).json({ message: "Admin not found" });
     }
 
-    delete admin.password; 
+    delete admin.password;
 
     return res.status(200).json({ admin });
 

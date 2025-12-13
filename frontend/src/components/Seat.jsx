@@ -26,10 +26,9 @@ const Seat = ({ seatLayout, bookedSeats, selectedSeats, toggleSeat }) => {
                 className={`
                   relative p-4 rounded-xl font-bold text-lg transition-all duration-200 
                   border-2 shadow-md
-                  ${
-                    isBooked
-                      ? "bg-gray-400 border-gray-500 text-white cursor-not-allowed opacity-60"
-                      : isSelected
+                  ${isBooked
+                    ? "bg-gray-400 border-gray-500 text-white cursor-not-allowed opacity-60"
+                    : isSelected
                       ? "bg-gradient-to-br from-orange-500 to-red-500 border-orange-600 text-white scale-105 shadow-lg"
                       : "bg-white border-gray-300 text-gray-700 hover:border-orange-400 hover:shadow-lg hover:scale-105"
                   }
@@ -37,14 +36,13 @@ const Seat = ({ seatLayout, bookedSeats, selectedSeats, toggleSeat }) => {
               >
                 {/* Seat Icon */}
                 <div className="flex flex-col items-center gap-1">
-                  <svg 
-                    className={`w-8 h-8 ${
-                      isBooked ? "text-white" : isSelected ? "text-white" : "text-gray-600"
-                    }`} 
-                    fill="currentColor" 
+                  <svg
+                    className={`w-8 h-8 ${isBooked ? "text-white" : isSelected ? "text-white" : "text-gray-600"
+                      }`}
+                    fill="currentColor"
                     viewBox="0 0 24 24"
                   >
-                    <path d="M4 18v3h3v-3h10v3h3v-6H4v3zm15-8h3v3h-3v-3zM2 10h3v3H2v-3zm15 3H7V5c0-1.1.9-2 2-2h6c1.1 0 2 .9 2 2v8z"/>
+                    <path d="M4 18v3h3v-3h10v3h3v-6H4v3zm15-8h3v3h-3v-3zM2 10h3v3H2v-3zm15 3H7V5c0-1.1.9-2 2-2h6c1.1 0 2 .9 2 2v8z" />
                   </svg>
                   <span className="text-sm">{seat}</span>
                 </div>
