@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getMyBookings } from "../services/bookingService";
+import IMAGES from "../assets/image";
 
 const Ticket = () => {
   const { booking_id } = useParams();
@@ -28,7 +29,7 @@ const Ticket = () => {
       
 <div className="text-center mb-8">
   <img 
-    src="../public/logo.png"
+    src={IMAGES.logo}
     alt="Company Logo" 
     className="w-28 mx-auto mb-3"
   />
