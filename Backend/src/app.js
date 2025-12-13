@@ -1,10 +1,11 @@
 import express from "express";
 import cors from "cors";
 
-import authRoutes from "../routes/AuthRoutes.js";
-import busRoutes from "../routes/BusRoutes.js";
-import bookingRoutes from "../routes/BookingRoutes.js";
-import adminroutes from "../routes/AdminRoute.js";
+import authRoutes from "./routes/AuthRoutes.js";
+import busRoutes from "./routes/BusRoutes.js";
+import bookingRoutes from "./routes/BookingRoutes.js";
+import adminroutes from "./routes/AdminRoute.js";
+
 
 const app = express();
 
