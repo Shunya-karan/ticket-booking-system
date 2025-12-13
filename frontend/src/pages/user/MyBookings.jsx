@@ -241,7 +241,7 @@ const MyBookings = () => {
 
                   {/* Action Buttons */}
                   <div className="flex flex-col sm:flex-row gap-4">
-                    <Link to={`/ticket/${booking.id}`}target="_blank" rel="noopener noreferrer">
+                    <Link to={`/ticket/${booking.id}`}>
                     <button
                       className="flex-1 w-64 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 flex items-center justify-center gap-2"
                     >
