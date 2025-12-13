@@ -3,7 +3,7 @@ import { getMyBookings, CancelSelectedSeats } from "../../services/bookingServic
 import UserNavbar from "../../components/UserNavbar";
 import Footer from "../../components/Footer";
 import toast from "react-hot-toast";
-import {Link} from "react-router-dom";
+
 const MyBookings = () => {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -241,7 +241,7 @@ const MyBookings = () => {
 
                   {/* Action Buttons */}
                   <div className="flex flex-col sm:flex-row gap-4">
-                    <Link to={`/ticket/${booking.id}`}>
+                    <a href={`/ticket/${booking.id}`} target="_blank" rel="noopener noreferrer">
                     <button
                       className="flex-1 w-64 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 flex items-center justify-center gap-2"
                     >
@@ -250,7 +250,7 @@ const MyBookings = () => {
                       </svg>
                       <span>Print Ticket</span>
                     </button>
-</Link>
+</a>
                     <button
                       onClick={() => {
                         setSelectedBooking(booking);
