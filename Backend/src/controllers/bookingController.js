@@ -68,7 +68,6 @@ export const bookseats = async (req, res) => {
     }
 };
 
-
 export const cancelSelectedSeats = async (req, res) => {
     try {
         const user_id = req.user.id;
@@ -186,7 +185,22 @@ export const getMyBookings = async (req, res) => {
         return res.json({ message: err.message })
     }
 }
-// getallbookings of particular bus(ADMIN)
+export const getTicketById = async (req, res) => {
+  try {
+    const { booking_id } = req.params;
+
+    const booking = await BOOKING.getFullBookingById(booking_id);
+
+    if (!booking) {
+      return res.status(404).json({ error: "Ticket not found" });
+    }
+
+    res.status(200).json({ booking });
+
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
 
 
 

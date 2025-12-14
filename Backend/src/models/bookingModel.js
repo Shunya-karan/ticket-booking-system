@@ -152,5 +152,45 @@ export default class BOOKING {
         return rows[0].revenue || 0;
     }
 
+    static async getFullBookingById(booking_id) {
+        // Booking
+        const [bookingRows] = await pool.query(
+            "SELECT * FROM bookings WHERE id = ?",
+            [booking_id]
+        );
+
+        if (bookingRows.length === 0) return null;
+
+        const booking = bookingRows[0];
+
+        // Seats
+        const [seats] = await pool.query(
+            "SELECT seat_number FROM booked_seats WHERE booking_id = ?",
+            [booking_id]
+        );
+        booking.seats = seats.map(s => s.seat_number);
+
+        // Passengers
+        const [passengers] = await pool.query(
+            "SELECT name, age, gender, seat_number FROM passengers WHERE booking_id = ?",
+            [booking_id]
+        );
+        booking.passengers = passengers;
+
+        // Bus
+        const [busRows] = await pool.query(
+            "SELECT * FROM buses WHERE id = ?",
+            [booking.bus_id]
+        );
+
+        if (busRows.length > 0) {
+            let bus = busRows[0];
+            bus.bus_images = JSON.parse(bus.bus_images || "[]");
+            booking.bus = bus;
+        }
+
+        return booking;
+    }
+
 }
 
