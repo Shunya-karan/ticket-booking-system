@@ -185,6 +185,7 @@ export const getMyBookings = async (req, res) => {
         return res.json({ message: err.message })
     }
 }
+
 export const getTicketById = async (req, res) => {
   try {
     const { booking_id } = req.params;
@@ -195,10 +196,20 @@ export const getTicketById = async (req, res) => {
       return res.status(404).json({ error: "Ticket not found" });
     }
 
-    res.status(200).json({ booking });
+    // Safely parse images
+    if (booking.bus?.bus_images && typeof booking.bus.bus_images === "string") {
+      try {
+        booking.bus.bus_images = JSON.parse(booking.bus.bus_images);
+      } catch {
+        booking.bus.bus_images = [];
+      }
+    }
+
+    return res.status(200).json({ booking });
 
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    console.error("TICKET API ERROR:", err);
+    return res.status(500).json({ error: "Failed to load ticket" });
   }
 };
 
