@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import api from "../services/api";
+import publicApi from "../services/publicApi";
 import IMAGES from "../assets/image";
 
 const Ticket = () => {
@@ -13,7 +13,7 @@ const Ticket = () => {
 
   const loadTicket = async () => {
     try {
-      const res = await api.get(`/booking/ticket/${booking_id}`);
+      const res = await publicApi.get(`/booking/ticket/${booking_id}`);
       setBooking(res.data.booking);
 
       setTimeout(() => window.print(), 800);

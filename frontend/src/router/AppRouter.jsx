@@ -109,14 +109,8 @@ export default function AppRouter() {
             </ProtectedRoute>
           }
         />
-        <Route
-          path="/ticket/:booking_id"
-          element={
-            <ProtectedRoute>
-              <Ticket />
-            </ProtectedRoute>
-          }
-        />
+        <Route path="/ticket/:booking_id" element={<Ticket />} />
+
 
         {/* ADMIN ROUTES */}
         <Route
