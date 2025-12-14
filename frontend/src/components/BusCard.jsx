@@ -1,3 +1,4 @@
+import {Link} from "react-router-dom"
 const BusCard = ({ bus }) => {
   return (
     <div className="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
@@ -78,15 +79,14 @@ const BusCard = ({ bus }) => {
               ₹{bus.price}
             </p>
           </div>
-
-          <a href={`/bus-details/${bus.id}`} className="flex-shrink-0">
+          <Link to={`/bus-details/${bus.id}`} className="flex-shrink-0">          
             <button className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 flex items-center gap-2">
               <span>View</span>
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
               </svg>
             </button>
-          </a>
+          </Link>
         </div>
       </div>
     </div>
