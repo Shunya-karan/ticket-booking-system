@@ -11,10 +11,10 @@ export const getSearchBuses = async (req, res) => {
     if (!from || !to) {
       return res.status(400).json({ message: "from and to are required" });
     }
-    const travelDate = new Date(date);
-    if (travelDate < new Date()) {
-      return res.status(400).json({ message: "Date should be a future date" });
-    }
+    // const travelDate = new Date(date);
+    // if (travelDate < new Date()) {
+    //   return res.status(400).json({ message: "Date should be a future date" });
+    // }
 
     const buses = await BUS.searchBuses(from, to, date);
 
