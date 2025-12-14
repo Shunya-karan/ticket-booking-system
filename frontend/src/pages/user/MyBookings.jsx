@@ -240,8 +240,8 @@ const MyBookings = () => {
 
                   {/* Action Buttons */}
                   <div className="flex flex-col sm:flex-row gap-4">
-                    <Link
-  to={`/ticket/${booking.id}`}
+  <a
+  href={`/ticket/${booking.id}`}
   target="_blank"
   rel="noopener noreferrer"
 >
@@ -254,7 +254,7 @@ const MyBookings = () => {
                         </svg>
                         <span>Print Ticket</span>
                       </button>
-                    </Link>
+                    </a>
                     <button
                       onClick={() => {
                         setSelectedBooking(booking);
