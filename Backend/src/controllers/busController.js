@@ -6,37 +6,39 @@ import BOOKING from "../models/bookingModel.js";
 // SEARCH BUSES 
 export const getSearchBuses = async (req, res) => {
   try {
-    const { from, to, date } = req.query;
+    let { from, to, date } = req.query;
 
     if (!from || !to) {
       return res.status(400).json({ message: "from and to are required" });
     }
-    // const travelDate = new Date(date);
-    // if (travelDate < new Date()) {
-    //   return res.status(400).json({ message: "Date should be a future date" });
-    // }
+
+    from = from.trim();
+    to = to.trim();
 
     const buses = await BUS.searchBuses(from, to, date);
 
     buses.forEach(bus => {
       if (typeof bus.bus_images === "string") {
-        bus.bus_images = JSON.parse(bus.bus_images);
+        try {
+          bus.bus_images = JSON.parse(bus.bus_images);
+        } catch {
+          bus.bus_images = [];
+        }
       }
     });
 
-    if (buses.length === 0) {
-      return res.status(404).json({ message: "No buses found" });
-    }
-
+    // ✅ IMPORTANT: Always return 200
     return res.status(200).json({
-      message: "Buses fetched successfully",
+      message: buses.length ? "Buses found" : "No buses available",
       buses,
     });
 
   } catch (err) {
+    console.error(err);
     return res.status(500).json({ error: err.message });
   }
 };
+
 
 // ACTIVE BUSES 
 export const getAllActiveBus = async (req, res) => {

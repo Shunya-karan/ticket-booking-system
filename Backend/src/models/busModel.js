@@ -112,17 +112,23 @@ export default class BUS {
     }
 
     static async searchBuses(from, to, date) {
-        let query = `SELECT * FROM buses WHERE start_point = ? AND end_point = ?`;
-        let params = [from, to];
+  let query = `
+    SELECT * FROM buses
+    WHERE LOWER(start_point) = LOWER(?)
+      AND LOWER(end_point) = LOWER(?)
+  `;
+  
+  let params = [from.trim(), to.trim()];
 
-        if (date) {
-            query += ` AND travel_date = ?`;
-            params.push(date);
-        }
+  if (date) {
+    query += " AND DATE(travel_date) = DATE(?)";
+    params.push(date);
+  }
 
-        const [rows] = await pool.query(query, params);
-        return rows;
-    }
+  const [rows] = await pool.query(query, params);
+  return rows;
+}
+
 
 
     static async getActiveBus() {

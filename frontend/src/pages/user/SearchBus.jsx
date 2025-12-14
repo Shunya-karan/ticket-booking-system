@@ -23,15 +23,17 @@ const SearchBus = () => {
 
   const fetchBuses = async () => {
     setLoading(true);
-    try {
+    
       const res = await SEARCHbus(from, to, date);
-      setBuses(res.data.buses);
-    } catch (err) {
-      toast.error("No buses found for this route");
-      setBuses([]);
-    } finally {
-      setLoading(false);
-    }
+     if (res.data.buses.length === 0) {
+  toast.error("No buses available for this route");
+} else {
+  setBuses(res.data.buses);
+}
+
+    // } finally {
+    //   setLoading(false);
+    // }
   };
 
   return (
