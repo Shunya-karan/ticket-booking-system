@@ -1,16 +1,20 @@
 export default function CloudinaryUploader({ onUpload }) {
   const uploadWidget = () => {
+    if (!window.cloudinary) {
+      alert("Cloudinary not loaded");
+      return;
+    }
+
     const widget = window.cloudinary.createUploadWidget(
       {
         cloudName: import.meta.env.VITE_CLOUDINARY_CLOUD_NAME,
-        uploadPreset: import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET, // your unsigned preset
+        uploadPreset: import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET,
         multiple: false,
         maxFiles: 1,
       },
       (error, result) => {
-        if (!error && result && result.event === "success") {
-          console.log("Uploaded Image:", result.info.secure_url);
-          onUpload(result.info.secure_url); // send image URL to parent
+        if (!error && result?.event === "success") {
+          onUpload(result.info.secure_url);
         }
       }
     );
