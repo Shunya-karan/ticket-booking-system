@@ -1,13 +1,10 @@
 import { useAuth } from "../../context/AuthContext";
 import AuthNavbar from "../../components/AuthNavbar";
-import AdminNavbar from "../../components/AdminNavbar";
 import UserNavbar from "../../components/UserNavbar";
 import Footer from "../../components/Footer";
 import IMAGES from "../../assets/image";
-import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import api from "../../services/api";
 import { GetpopularRoutes } from "../../services/busService";
 
 const Home = () => {
@@ -35,7 +32,7 @@ const Home = () => {
   const handleSearch = () => {
     navigate(`/search-bus?from=${from}&to=${to}&date=${date || ""}`);
 
-
+    
 
   };
   return (
@@ -43,7 +40,7 @@ const Home = () => {
       {/* NAVBARS */}
       {!isLoggedIn && <AuthNavbar />}
       {isLoggedIn && user?.role === "user" && <UserNavbar />}
-
+      {isLoggedIn && user?.role==="admin" && navigate("/admin")}
 
       {/* HERO SECTION WITH VIDEO */}
       <section className="relative h-[60vh] sm:h-[70vh] lg:h-[85vh] overflow-hidden">

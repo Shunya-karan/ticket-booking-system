@@ -5,12 +5,13 @@ import { useAuth } from "../../context/AuthContext";
 import AuthNavbar from "../../components/AuthNavbar";
 
 const Contact = () => {
+  const { isLoggedIn, user } = useAuth();
   const handleSubmit = (e) => {
     e.preventDefault();
     toast.success("Message sent successfully! We will contact you soon.");
     e.target.reset();
   };
-  const { isLoggedIn, user } = useAuth;
+   
 
   return (
     <>
@@ -18,7 +19,9 @@ const Contact = () => {
         {!isLoggedIn && <AuthNavbar />}
         {isLoggedIn && user?.role === "user" && <UserNavbar />}
 
-      </div>      <div className="min-h-screen bg-gray-50">
+      </div>
+
+          <div className="min-h-screen bg-gray-50">
 
         {/* HERO SECTION */}
         <section className="bg-gradient-to-r from-orange-500 via-orange-600 to-red-500 text-white py-20 shadow-xl">
