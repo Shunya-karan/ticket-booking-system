@@ -53,7 +53,7 @@ View seat layout (Sleeper / Seater)
 Select seats & add passenger details
 Book tickets securely
 View booking history
-Print ticket (opens in new tab)
+Download / Print ticket (PDF)
 Cancel selected seats or full booking
 Profile dashboard with stats
 
@@ -98,6 +98,27 @@ JWT-based authentication
 Role-based access (Admin / User)
 CORS protected APIs
 Environment variables for secrets
+Role-based protected routes
+
+⚙️ Local Setup
+
+1. Clone the repository
+
+git clone https://github.com/Shunya-karan/ticket-booking-system.git
+
+2. Install dependencies
+
+Frontend:
+cd frontend
+npm install
+npm run dev
+
+Backend:
+cd backend
+npm install
+npm run start
+
+3. Configure environment variables using .env.example
 
 
 🔑 Demo Credentials
@@ -111,9 +132,6 @@ Email: user@example.com
 Password: user123
 
 
-
-Future Enhancements
-
 🔮 Future Enhancements
 
 - Online payment gateway integration
@@ -124,3 +142,10 @@ Future Enhancements
 ⭐ Support
 
 If you like this project, please give it a ⭐ on GitHub!
+
+
+📌 Note
+
+This project was deployed using Railway and Render during development.
+The deployment may become inactive due to free-tier limitations,
+but the application is fully production-ready and cloud-deployment compatible.
