@@ -8,6 +8,37 @@ with real-time seat selection, secure authentication, and admin management.
 https://busbuddy-frontend.onrender.com
 
 
+📸 Screenshots
+
+### User Flow
+
+**Login / Signup**
+![Login](screenshots/login.png)
+
+**Search Buses**
+![Search](screenshots/search.jpg)
+
+**Seat Selection**
+![Seat Selection](screenshots/seatselection.png)
+
+**Booking Success**
+![Booking Success](screenshots/bookingsuccess.png)
+
+**My Bookings**
+![My Bookings](screenshots/mybooking.png)
+
+---
+
+### Admin Panel
+
+**Admin Dashboard**
+![Admin Dashboard](screenshots/admindashboard.png)
+
+**Add / Update Bus**
+![Add Bus](screenshots/addbus.png)
+
+**View Bookings**
+![View Bookings](screenshots/view-bookings.png)
 
 
 
