@@ -26,6 +26,7 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   // const { login, isLoggedIn } = useAuth();
 
@@ -43,6 +44,10 @@ const Signup = () => {
       return;
     }
 
+    if (!emailRegex.test(email)) {
+    toast.error("Please enter a valid email address");
+    return;
+  }
     try {
       const res = await PostSignUp(name, email, password);
 
