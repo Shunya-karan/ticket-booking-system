@@ -68,6 +68,4 @@ ehthumbs.db
 /backend/dist/
 steps.txt
 backend/.env
-# Optional: lockfiles (if you want to ignore them)
-# package-lock.json
-# yarn.lock
+/screenshots
