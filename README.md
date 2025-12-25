@@ -13,8 +13,7 @@ https://busbuddy-frontend.onrender.com
 ### User Flow
 
 **Login / Signup**
-
-![Login](screenshots/login.png)
+(screenshots/login.png)
 
 **Search Buses**
 
