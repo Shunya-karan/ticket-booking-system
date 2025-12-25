@@ -68,4 +68,4 @@ ehthumbs.db
 /backend/dist/
 steps.txt
 backend/.env
-/screenshots
+# /screenshots
