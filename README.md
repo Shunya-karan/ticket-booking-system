@@ -17,7 +17,7 @@ https://busbuddy-frontend.onrender.com
 
 **Search Buses**
 
-![Search](screenshots/search.jpg)
+![Search](screenshots/search.png)
 
 **Seat Selection**
 
