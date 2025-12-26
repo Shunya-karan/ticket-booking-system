@@ -1,4 +1,4 @@
-🚌 BusBuddy – Online Bus Ticket Booking System
+# 🚌BusBuddy – Online Bus Ticket Booking System
 
 BusBuddy is a production-ready full-stack online bus ticket booking system
 with real-time seat selection, secure authentication, and admin management.
@@ -50,7 +50,7 @@ https://busbuddy-frontend.onrender.com
 
 
 
-🚀 Features
+## 🚀 Features
 
 👤 User Features
 
