@@ -5,8 +5,7 @@ with real-time seat selection, secure authentication, and admin management.
 
 
 🔗 Live Demo
-https://busbuddy-frontend.onrender.com
-
+https://busbuddy-q5rr.onrender.com/
 
 📸 Screenshots
 
